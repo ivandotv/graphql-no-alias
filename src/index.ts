@@ -56,6 +56,11 @@ function createFieldValidation(
   currentCount.set('Query', new Map())
   currentCount.set('Mutation', new Map())
 
+  //track if the error have already been reported for particular field
+  const errorMap: Map<'Query' | 'Mutation', Map<string, boolean>> = new Map()
+  errorMap.set('Query', new Map())
+  errorMap.set('Mutation', new Map())
+
   return (node: FieldNode) => {
     const parentTypeName = context.getParentType()?.name
 
@@ -65,7 +70,8 @@ function createFieldValidation(
         node,
         allowedCount.get(parentTypeName)!,
         currentCount.get(parentTypeName)!,
-        errorFn
+        errorFn,
+        errorMap.get(parentTypeName)!
       )
     }
   }
@@ -77,24 +83,29 @@ function createFieldValidation(
 function checkCount(
   ctx: ValidationContext,
   node: FieldNode,
-  maxAllowedPool: Map<string, number>,
-  currentCountPool: Map<string, number>,
-  errorFn: typeof createErrorMsg
+  maxAllowedData: Map<string, number>,
+  currentCountData: Map<string, number>,
+  errorFn: typeof createErrorMsg,
+  errorMap: Map<string, boolean>
 ): void {
   const nodeName = node.name.value
   const typeName = ctx.getParentType()!.name
-  const maxAllowed = maxAllowedPool.get(nodeName)
+  const maxAllowed = maxAllowedData.get(nodeName)
 
   if (maxAllowed) {
-    let currentCount = currentCountPool.get(nodeName) ?? 0
+    let currentCount = currentCountData.get(nodeName) ?? 0
     currentCount++
     if (currentCount > maxAllowed) {
-      ctx.reportError(errorFn(typeName, nodeName, maxAllowed, node, ctx))
+      // check if already reported for the current field
+      if (!errorMap.get(nodeName)) {
+        ctx.reportError(errorFn(typeName, nodeName, maxAllowed, node, ctx))
+        errorMap.set(nodeName, true)
+      }
 
       return
     }
 
-    currentCountPool.set(nodeName, currentCount)
+    currentCountData.set(nodeName, currentCount)
   }
 }
 
