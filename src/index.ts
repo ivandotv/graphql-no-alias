@@ -6,6 +6,8 @@ import {
   ValidationContext
 } from 'graphql'
 
+//https://graphql.org/graphql-js/language/#visitor
+
 export function createValidation(
   defaultAllow = 1,
   directiveName = 'noAlias',
@@ -76,9 +78,9 @@ function createFieldValidation(
     }
   }
 }
+
 /**
  */
-//https://graphql.org/graphql-js/language/#visitor
 
 function checkCount(
   ctx: ValidationContext,

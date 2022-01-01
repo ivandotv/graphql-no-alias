@@ -14,4 +14,4 @@ const jestConfig = {
   sourceMaps: 'inline'
 }
 
-module.exports = process.env.NODE_ENV === 'test' ? jestConfig : undefined
+module.exports = process.env.NODE_ENV === 'test' ? jestConfig : {}

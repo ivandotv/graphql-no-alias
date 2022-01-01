@@ -1,4 +1,4 @@
-import { buildSchema, FieldNode, GraphQLError, parse, validate } from 'graphql'
+import { buildSchema, GraphQLError, parse, validate } from 'graphql'
 import { createValidation } from '../'
 
 describe('Directive on field', () => {
@@ -31,7 +31,7 @@ describe('Directive on field', () => {
     expect(errors).toHaveLength(0)
   })
 
-  test('Do not allow alias if the directive is present', () => {
+  test('Do not allow alias', () => {
     const { validation, typeDefs } = createValidation()
     const defaultCount = 1
 
@@ -238,5 +238,45 @@ describe('Directive on field', () => {
     expect(errors[0].message).toMatch(
       new RegExp(`Allowed number of calls.+${allow}`, 'i')
     )
+  })
+
+  test('Set custom error message', () => {
+    const allow = 1
+    const errorMessage = 'custom_error_message'
+
+    const errorFn = jest.fn().mockReturnValue(new GraphQLError(errorMessage))
+
+    const { validation, typeDefs } = createValidation(
+      undefined,
+      undefined,
+      errorFn
+    )
+
+    const schema = buildSchema(/* GraphQL */ `
+      ${typeDefs}
+
+      type Query {
+        getUser: User @noAlias(allow:${allow})
+      }
+      type User {
+        name: String
+      }
+    `)
+
+    const query = /* GraphQL */ `
+      {
+        getUser {
+          name
+        }
+        alias_1: getUser {
+          name
+        }
+      }
+    `
+    const doc = parse(query)
+    const errors = validate(schema, doc, [validation])
+
+    expect(errors).toHaveLength(1)
+    expect(errors[0].message).toMatch(errorMessage)
   })
 })
