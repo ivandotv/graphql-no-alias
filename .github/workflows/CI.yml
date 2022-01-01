@@ -5,7 +5,7 @@ on:
       - '*'
   pull_request:
     branches:
-      - master
+      - main
       - develop
 jobs:
   build:
@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         uses: pnpm/action-setup@v2.0.1
         with:
-          version: 6.23.6
+          version: 6.24.4
           run_install: true
 
       - name: Lint source
@@ -57,7 +57,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: 'Consume changesets'
-        if: github.event_name == 'push' && github.repository == 'ivandotv/untilted' && matrix.node == 16 && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.repository == 'ivandotv/graphql-no-alias' && matrix.node == 16 && github.ref == 'refs/heads/main'
         uses: changesets/action@v1
         id: 'changesets'
         with:
@@ -68,13 +68,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: 'Generate docs'
-        if: steps.changesets.outputs.published == 'true'
-        run: pnpm gen:docs
-
-      - name: Commit docs
-        if: steps.changesets.outputs.published == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'Generate docs'

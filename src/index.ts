@@ -1,7 +1,6 @@
 import {
   ASTVisitor,
   ConstDirectiveNode,
-  FieldDefinitionNode,
   FieldNode,
   GraphQLError,
   GraphQLObjectType,
@@ -10,6 +9,12 @@ import {
 
 //https://graphql.org/graphql-js/language/#visitor
 
+/**
+ * Creates validation object with needed type declarations and validation function
+ * @param [defaultAllow] - how many aliases to allow by default
+ * @param [directiveName] - direactive name to use
+ * @param [errorFn] - function that will return GraphQLError
+ */
 export function createValidation(
   defaultAllow = 1,
   directiveName = 'noAlias',
@@ -62,6 +67,15 @@ function createFieldValidation(
   }
 }
 
+/**
+ * Checks if allowed alias count has been exceeded
+ * @param ctx
+ * @param node
+ * @param maxAllowedData
+ * @param currentCountData
+ * @param errorFn
+ * @param errorMap
+ */
 function checkCount(
   ctx: ValidationContext,
   node: FieldNode,
@@ -72,26 +86,31 @@ function checkCount(
 ): void {
   const nodeName = node.name.value
   const typeName = ctx.getParentType()!.name
-  const key = `${typeName}-${nodeName}`
-  const maxAllowed = maxAllowedData.get(key)
+  const fieldKey = `${typeName}-${nodeName}`
+  const typeKey = `${typeName}`
+  const maxAllowed = maxAllowedData.get(fieldKey) || maxAllowedData.get(typeKey)
 
   if (maxAllowed) {
-    let currentCount = currentCountData.get(key) ?? 0
+    let currentCount = currentCountData.get(fieldKey) ?? 0
     currentCount++
     if (currentCount > maxAllowed) {
       // check if already reported for the current field
-      if (!errorMap.get(key)) {
+      if (!errorMap.get(fieldKey)) {
         ctx.reportError(errorFn(typeName, nodeName, maxAllowed, node, ctx))
-        errorMap.set(key, true)
+        errorMap.set(fieldKey, true)
       }
 
       return
     }
 
-    currentCountData.set(key, currentCount)
+    currentCountData.set(fieldKey, currentCount)
   }
 }
 
+/**
+ * Process appropriate schema types (Query, Mutation) and resolve all directive values by
+ * building a mapping between type fields and allowed values
+ */
 function createMaxAllowedTable(
   defaultAllow: number,
   directiveName: string,
@@ -131,21 +150,9 @@ function createMaxAllowedTable(
   return maxAllowed
 }
 
-function createErrorMsg(
-  typeName: string,
-  fieldName: string,
-  maxallowed: number,
-  _node: FieldNode,
-  _ctx: ValidationContext
-): GraphQLError {
-  return new GraphQLError(
-    `Allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxallowed})`
-  )
-}
-
 function processDirective(
   directiveName: string,
-  defaultAllow: number,
+  defaultValue: number,
   directives?: ConstDirectiveNode[]
 ): number | undefined {
   return directives
@@ -156,6 +163,24 @@ function processDirective(
         return parseInt(dir.arguments[0].value.value, 10)
       }
 
-      return defaultAllow
+      return defaultValue
     })[0]
+}
+
+/**
+ * Creates custom GraphQLError instance
+ * @param typeName Object type name
+ * @param fieldName  Object field name
+ * @param maxallowed  max allowed count that has been reached
+ */
+function createErrorMsg(
+  typeName: string,
+  fieldName: string,
+  maxallowed: number,
+  _node: FieldNode,
+  _ctx: ValidationContext
+): GraphQLError {
+  return new GraphQLError(
+    `Allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxallowed})`
+  )
 }

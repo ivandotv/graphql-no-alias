@@ -1,7 +1,7 @@
 import { buildSchema, GraphQLError, parse, validate } from 'graphql'
 import { createValidation } from '../'
 
-describe('Directive on field', () => {
+describe('Directive on type field', () => {
   test('If the directive is not present, ignore all aliases', () => {
     const { validation, typeDefs } = createValidation()
 
@@ -31,7 +31,7 @@ describe('Directive on field', () => {
     expect(errors).toHaveLength(0)
   })
 
-  test.only('Do not allow more than 1', () => {
+  test('By default do not allow more than 1 alias per field', () => {
     const { validation, typeDefs } = createValidation()
     const defaultCount = 1
 
@@ -64,7 +64,7 @@ describe('Directive on field', () => {
     )
   })
 
-  test('Set custom maximum allowed', () => {
+  test('Set custom number of allowd aliases', () => {
     const { validation, typeDefs } = createValidation()
     const allow = 3
 
@@ -105,7 +105,7 @@ describe('Directive on field', () => {
     )
   })
 
-  test('Set global maximum allowed', () => {
+  test('Set default custom maximum allowed when creating the validation', () => {
     const allow = 3
     const { validation, typeDefs } = createValidation(allow)
 
@@ -146,7 +146,7 @@ describe('Directive on field', () => {
     )
   })
 
-  test('Change directive name', () => {
+  test('Set custom directive name', () => {
     const allow = 3
     const directiveName = 'customDirectiveName'
 
@@ -189,7 +189,7 @@ describe('Directive on field', () => {
     )
   })
 
-  test('Error is only reported once for every field', () => {
+  test('Report one error per field', () => {
     const allow = 3
     const directiveName = 'customDirectiveName'
 

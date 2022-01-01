@@ -1,8 +1,16 @@
 {
   "name": "graphql-no-alias",
   "version": "0.0.0",
-  "description": "",
-  "keywords": [],
+  "private": false,
+  "description": "No alias directive for graphql mutation and query types. It can limit the amount of alias fields that can be used for queries and mutations. Preventing batch attacks.",
+  "keywords": [
+    "graphql",
+    "graphql directive",
+    "graphql validation",
+    "graphql alias",
+    "graphql query alias",
+    "graphql mutation alias"
+  ],
   "author": "ivandotv",
   "license": "MIT",
   "main": "./dist/prod/graphql-no-alias.js",
@@ -42,17 +50,16 @@
     "graphql": "^16.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.5",
-    "@babel/preset-env": "^7.16.5",
-    "@babel/preset-typescript": "^7.16.5",
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
     "@changesets/cli": "^2.19.0",
-    "@graphql-tools/schema": "^8.3.1",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",
-    "eslint": "^8.5.0",
+    "eslint": "^8.6.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-jest": "^25.3.2",
+    "eslint-plugin-jest": "^25.3.4",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "graphql": "^16.2.0",
@@ -64,8 +71,5 @@
     "microbundle": "^0.14.2",
     "prettier": "^2.5.1",
     "shx": "^0.3.3"
-  },
-  "dependencies": {
-    "@graphql-tools/utils": "^8.5.5"
   }
 }
