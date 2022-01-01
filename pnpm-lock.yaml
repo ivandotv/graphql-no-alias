@@ -1,7 +1,12 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@babel/core': ^7.16.5
+  '@babel/preset-env': ^7.16.5
+  '@babel/preset-typescript': ^7.16.5
   '@changesets/cli': ^2.19.0
+  '@graphql-tools/schema': ^8.3.1
+  '@graphql-tools/utils': ^8.5.5
   '@types/jest': ^27.4.0
   '@typescript-eslint/eslint-plugin': ^5.8.1
   '@typescript-eslint/parser': ^5.8.1
@@ -10,6 +15,7 @@ specifiers:
   eslint-plugin-jest: ^25.3.2
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-promise: ^6.0.0
+  graphql: ^16.2.0
   husky: ^7.0.4
   jest: ^27.4.5
   jest-mock-console: ^1.2.3
@@ -19,8 +25,15 @@ specifiers:
   prettier: ^2.5.1
   shx: ^0.3.3
 
+dependencies:
+  '@graphql-tools/utils': 8.5.5_graphql@16.2.0
+
 devDependencies:
+  '@babel/core': 7.16.5
+  '@babel/preset-env': 7.16.5_@babel+core@7.16.5
+  '@babel/preset-typescript': 7.16.5_@babel+core@7.16.5
   '@changesets/cli': 2.19.0
+  '@graphql-tools/schema': 8.3.1_graphql@16.2.0
   '@types/jest': 27.4.0
   '@typescript-eslint/eslint-plugin': 5.8.1_7f5facf831fa8c7ebb8ea587912883a2
   '@typescript-eslint/parser': 5.8.1_eslint@8.5.0
@@ -29,6 +42,7 @@ devDependencies:
   eslint-plugin-jest: 25.3.2_675cbcf6c9652bbc881d9df373594b28
   eslint-plugin-prettier: 4.0.0_94e1b6d3ce6ea916847122712570e9ae
   eslint-plugin-promise: 6.0.0_eslint@8.5.0
+  graphql: 16.2.0
   husky: 7.0.4
   jest: 27.4.5
   jest-mock-console: 1.2.3_jest@27.4.5
@@ -1119,6 +1133,20 @@ packages:
       '@babel/helper-plugin-utils': 7.16.5
     dev: true
 
+  /@babel/plugin-transform-typescript/7.16.1_@babel+core@7.16.5:
+    resolution: {integrity: sha512-NO4XoryBng06jjw/qWEU2LhcLJr1tWkhpMam/H4eas/CDKMX/b2/Ylb6EI256Y7+FVPCawwSM1rrJNOpDiz+Lg==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.16.5
+      '@babel/helper-create-class-features-plugin': 7.16.5_@babel+core@7.16.5
+      '@babel/helper-plugin-utils': 7.16.5
+      '@babel/plugin-syntax-typescript': 7.16.5_@babel+core@7.16.5
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@babel/plugin-transform-unicode-escapes/7.16.5_@babel+core@7.16.5:
     resolution: {integrity: sha512-shiCBHTIIChGLdyojsKQjoAyB8MBwat25lKM7MJjbe1hE0bgIppD+LX9afr41lLHOhqceqeWl4FkLp+Bgn9o1Q==}
     engines: {node: '>=6.9.0'}
@@ -1263,6 +1291,20 @@ packages:
       '@babel/plugin-transform-react-jsx': 7.16.5_@babel+core@7.16.5
       '@babel/plugin-transform-react-jsx-development': 7.16.5_@babel+core@7.16.5
       '@babel/plugin-transform-react-pure-annotations': 7.16.5_@babel+core@7.16.5
+    dev: true
+
+  /@babel/preset-typescript/7.16.5_@babel+core@7.16.5:
+    resolution: {integrity: sha512-lmAWRoJ9iOSvs3DqOndQpj8XqXkzaiQs50VG/zESiI9D3eoZhGriU675xNCr0UwvsuXrhMAGvyk1w+EVWF3u8Q==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.16.5
+      '@babel/helper-plugin-utils': 7.16.5
+      '@babel/helper-validator-option': 7.14.5
+      '@babel/plugin-transform-typescript': 7.16.1_@babel+core@7.16.5
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /@babel/runtime/7.16.5:
@@ -1498,6 +1540,36 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /@graphql-tools/merge/8.2.1_graphql@16.2.0:
+    resolution: {integrity: sha512-Q240kcUszhXiAYudjuJgNuLgy9CryDP3wp83NOZQezfA6h3ByYKU7xI6DiKrdjyVaGpYN3ppUmdj0uf5GaXzMA==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-tools/utils': 8.5.5_graphql@16.2.0
+      graphql: 16.2.0
+      tslib: 2.3.1
+    dev: true
+
+  /@graphql-tools/schema/8.3.1_graphql@16.2.0:
+    resolution: {integrity: sha512-3R0AJFe715p4GwF067G5i0KCr/XIdvSfDLvTLEiTDQ8V/hwbOHEKHKWlEBHGRQwkG5lwFQlW1aOn7VnlPERnWQ==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      '@graphql-tools/merge': 8.2.1_graphql@16.2.0
+      '@graphql-tools/utils': 8.5.5_graphql@16.2.0
+      graphql: 16.2.0
+      tslib: 2.3.1
+      value-or-promise: 1.0.11
+    dev: true
+
+  /@graphql-tools/utils/8.5.5_graphql@16.2.0:
+    resolution: {integrity: sha512-y7zRXWIUI73X+9/rf/0KzrNFMlpRKFfzLiwdbIeWwgLs+NV9vfUOoVkX8luXX6LwQxhSypHATMiwZGM2ro/wJA==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    dependencies:
+      graphql: 16.2.0
+      tslib: 2.3.1
 
   /@humanwhocodes/config-array/0.9.2:
     resolution: {integrity: sha512-UXOuFCGcwciWckOpmfKDq/GyhlTf9pN/BzG//x8p8zTOFEcGuA68ANXheFS0AGvy3qgZqLBUkMs7hqzqCKOVwA==}
@@ -3731,6 +3803,11 @@ packages:
 
   /grapheme-splitter/1.0.4:
     resolution: {integrity: sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==}
+    dev: true
+
+  /graphql/16.2.0:
+    resolution: {integrity: sha512-MuQd7XXrdOcmfwuLwC2jNvx0n3rxIuNYOxUtiee5XOmfrWo613ar2U8pE7aHAKh8VwfpifubpD9IP+EdEAEOsA==}
+    engines: {node: ^12.22.0 || ^14.16.0 || >=16.0.0}
     dev: true
 
   /gzip-size/3.0.0:
@@ -6756,7 +6833,6 @@ packages:
 
   /tslib/2.3.1:
     resolution: {integrity: sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==}
-    dev: true
 
   /tsutils/3.21.0:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
@@ -6901,6 +6977,11 @@ packages:
     dependencies:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
+    dev: true
+
+  /value-or-promise/1.0.11:
+    resolution: {integrity: sha512-41BrgH+dIbCFXClcSapVs5M6GkENd3gQOJpEfPDNa71LsUGMXDL0jMWpI/Rh7WhX+Aalfz2TTS3Zt5pUsbnhLg==}
+    engines: {node: '>=12'}
     dev: true
 
   /w3c-hr-time/1.0.2:

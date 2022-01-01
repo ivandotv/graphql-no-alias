@@ -1,16 +1,11 @@
 module.exports = {
   root: true,
   env: {
-    // commonjs: true,
     es6: true,
     node: true,
     jest: true
   },
-  plugins: [
-    '@typescript-eslint/eslint-plugin',
-    'eslint-plugin-tsdoc',
-    'prettier'
-  ],
+  plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -22,8 +17,6 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
-    'tsdoc/syntax': 'warn',
-    // 'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['off', { argsIgnorePattern: '^_' }],
     'generator-star-spacing': ['error', { before: false, after: true }],
     'space-before-function-paren': 'off',
@@ -36,6 +29,7 @@ module.exports = {
       'error',
       { blankLine: 'always', prev: '*', next: 'return' }
     ],
+    '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/explicit-function-return-type': [
       'error',
       {
@@ -55,7 +49,7 @@ module.exports = {
         'ts-expect-error': 'allow-with-description'
       }
     ],
-    '@typescript-eslint/no-non-null-assertion': [2],
+    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/member-delimiter-style': [
       'error',
       {
