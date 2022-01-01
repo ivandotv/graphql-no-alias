@@ -31,7 +31,7 @@ describe('Directive on field', () => {
     expect(errors).toHaveLength(0)
   })
 
-  test('Do not allow alias', () => {
+  test.only('Do not allow more than 1', () => {
     const { validation, typeDefs } = createValidation()
     const defaultCount = 1
 

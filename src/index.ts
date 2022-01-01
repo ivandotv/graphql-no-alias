@@ -1,5 +1,7 @@
 import {
   ASTVisitor,
+  ConstDirectiveNode,
+  FieldDefinitionNode,
   FieldNode,
   GraphQLError,
   GraphQLObjectType,
@@ -17,7 +19,7 @@ export function createValidation(
   validation: (context: ValidationContext) => ASTVisitor
 } {
   return {
-    typeDefs: `directive @${directiveName}(allow: Int = ${defaultAllow}) on FIELD_DEFINITION`,
+    typeDefs: `directive @${directiveName}(allow: Int = ${defaultAllow}) on OBJECT | FIELD_DEFINITION`,
     validation(context: ValidationContext): ASTVisitor {
       const ast: ASTVisitor = {
         Field: {
@@ -43,44 +45,22 @@ function createFieldValidation(
 ): (node: FieldNode) => void {
   const schema = context.getSchema()
 
-  const allowedCount: Map<'Query' | 'Mutation', Map<string, number>> = new Map()
-
-  allowedCount.set(
-    'Query',
-    createMaxAllowedTable(defaultAllow, directiveName, schema.getQueryType())
-  )
-  allowedCount.set(
-    'Mutation',
-    createMaxAllowedTable(defaultAllow, directiveName, schema.getMutationType())
-  )
-
-  const currentCount: Map<'Query' | 'Mutation', Map<string, number>> = new Map()
-  currentCount.set('Query', new Map())
-  currentCount.set('Mutation', new Map())
-
+  const allowedCount = createMaxAllowedTable(defaultAllow, directiveName, [
+    schema.getQueryType(),
+    schema.getMutationType()
+  ])
+  const currentCount: Map<string, number> = new Map()
   //track if the error have already been reported for particular field
-  const errorMap: Map<'Query' | 'Mutation', Map<string, boolean>> = new Map()
-  errorMap.set('Query', new Map())
-  errorMap.set('Mutation', new Map())
+  const errorMap: Map<string, boolean> = new Map()
 
   return (node: FieldNode) => {
     const parentTypeName = context.getParentType()?.name
 
     if (parentTypeName === 'Query' || parentTypeName === 'Mutation') {
-      checkCount(
-        context,
-        node,
-        allowedCount.get(parentTypeName)!,
-        currentCount.get(parentTypeName)!,
-        errorFn,
-        errorMap.get(parentTypeName)!
-      )
+      checkCount(context, node, allowedCount, currentCount, errorFn, errorMap)
     }
   }
 }
-
-/**
- */
 
 function checkCount(
   ctx: ValidationContext,
@@ -92,59 +72,63 @@ function checkCount(
 ): void {
   const nodeName = node.name.value
   const typeName = ctx.getParentType()!.name
-  const maxAllowed = maxAllowedData.get(nodeName)
+  const key = `${typeName}-${nodeName}`
+  const maxAllowed = maxAllowedData.get(key)
 
   if (maxAllowed) {
-    let currentCount = currentCountData.get(nodeName) ?? 0
+    let currentCount = currentCountData.get(key) ?? 0
     currentCount++
     if (currentCount > maxAllowed) {
       // check if already reported for the current field
-      if (!errorMap.get(nodeName)) {
+      if (!errorMap.get(key)) {
         ctx.reportError(errorFn(typeName, nodeName, maxAllowed, node, ctx))
-        errorMap.set(nodeName, true)
+        errorMap.set(key, true)
       }
 
       return
     }
 
-    currentCountData.set(nodeName, currentCount)
+    currentCountData.set(key, currentCount)
   }
 }
 
 function createMaxAllowedTable(
   defaultAllow: number,
   directiveName: string,
-  type?: GraphQLObjectType | null
+  types: (GraphQLObjectType | undefined | null)[]
 ): Map<string, number> {
   const maxAllowed = new Map<string, number>()
 
-  if (type?.astNode?.fields) {
-    for (const field of Object.values(type.astNode.fields)) {
-      const data = field.directives
-        ?.filter((directive) => directive.name.value === directiveName)
-        .map((dir) => {
-          if (dir.arguments && dir.arguments[0]) {
-            return {
-              name: field.name.value,
-              // @ts-expect-error - wrong types
-              allow: parseInt(dir.arguments[0].value.value, 10)
-            }
-          }
+  for (const graphType of types) {
+    const value = graphType
+      ? processDirective(
+          directiveName,
+          defaultAllow,
+          // @ts-expect-error - directives array is typed as readonly
+          graphType?.astNode?.directives
+        )
+      : undefined
 
-          return {
-            name: field.name.value,
-            allow: defaultAllow
-          }
-        })[0]
-      if (data) {
-        maxAllowed.set(data.name, data.allow)
-      }
+    if (value) {
+      maxAllowed.set(`${graphType?.name}`, value)
     }
 
-    return maxAllowed
+    if (graphType?.astNode?.fields) {
+      for (const field of Object.values(graphType.astNode.fields)) {
+        const value = processDirective(
+          directiveName,
+          defaultAllow,
+          // @ts-expect-error - directives array is typed as readonly
+          field.directives
+        )
+        if (value) {
+          maxAllowed.set(`${graphType}-${field.name.value}`, value)
+        }
+      }
+    }
   }
 
-  return new Map()
+  return maxAllowed
 }
 
 function createErrorMsg(
@@ -157,4 +141,21 @@ function createErrorMsg(
   return new GraphQLError(
     `Allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxallowed})`
   )
+}
+
+function processDirective(
+  directiveName: string,
+  defaultAllow: number,
+  directives?: ConstDirectiveNode[]
+): number | undefined {
+  return directives
+    ?.filter((directive) => directive.name.value === directiveName)
+    .map((dir) => {
+      if (dir.arguments && dir.arguments[0]) {
+        // @ts-expect-error - wrong types
+        return parseInt(dir.arguments[0].value.value, 10)
+      }
+
+      return defaultAllow
+    })[0]
 }
