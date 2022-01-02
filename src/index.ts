@@ -15,7 +15,7 @@ import {
  * @param [directiveName] - direactive name to use
  * @param [errorFn] - function that will return GraphQLError when the validation fails
  */
-export function createValidation(
+export default function createValidation(
   defaultAllow = 1,
   directiveName = 'noAlias',
   errorFn?: typeof createErrorMsg
