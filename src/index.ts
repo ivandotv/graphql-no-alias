@@ -13,7 +13,7 @@ import {
  * Creates validation object with needed type declarations and validation function
  * @param [defaultAllow] - how many aliases to allow by default
  * @param [directiveName] - direactive name to use
- * @param [errorFn] - function that will return GraphQLError
+ * @param [errorFn] - function that will return GraphQLError when the validation fails
  */
 export function createValidation(
   defaultAllow = 1,
@@ -171,16 +171,16 @@ function processDirective(
  * Creates custom GraphQLError instance
  * @param typeName Object type name
  * @param fieldName  Object field name
- * @param maxallowed  max allowed count that has been reached
+ * @param maxAllowed  max allowed count that has been reached
  */
 function createErrorMsg(
   typeName: string,
   fieldName: string,
-  maxallowed: number,
+  maxAllowed: number,
   _node: FieldNode,
   _ctx: ValidationContext
 ): GraphQLError {
   return new GraphQLError(
-    `Allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxallowed})`
+    `Allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxAllowed})`
   )
 }
