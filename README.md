@@ -1,5 +1,9 @@
 # GraphQl No Alias Directive Validation
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ivandotv/graphql-no-alias/Test)
+![Codecov](https://img.shields.io/codecov/c/gh/ivandotv/graphql-no-alias)
+[![GitHub license](https://img.shields.io/github/license/ivandotv/graphql-no-alias)](https://github.com/ivandotv/graphql-no-alias/blob/main/LICENSE)
+
 Graphql validation with accompanying directive to limit the number of `alias` queries and mutations you can use.
 It effectively disables batching of queries and mutations.
 
