@@ -40,7 +40,14 @@ npm i graphql-no-alias
 
 ## Usage
 
-There are two parts, a `directive` declaration that needs to be added to the schema, and a validation function that needs to be added to the `GraphQl` `validationRules` array.
+There are two ways to use this validation:
+
+- Using the `directive` in the `schema`
+- [Using the configuration options](#Imperative-configuration)
+
+### Using the directive
+
+There are two parts, a `directive` that needs to be added to the `schema`, and a validation function that needs to be added to the `GraphQl` `validationRules` array.
 
 ```js
 const express = require('express')
@@ -157,7 +164,7 @@ On the client:
 
 ### Customizing the declaration
 
-The declaration can be customized to have a different name, different default `allow` value, and it can also be passed a custom error function that is executed when the validation fails.
+The declaration can be customized to have a different name, different default `allow` values, and it can also be passed a custom error function that is executed when the validation fails.
 
 In the next example, `validation` will allow `3` calls to the same field by default, the directive name will be changed to `NoBatchCalls`, and there will be a custom error message.
 
@@ -181,6 +188,35 @@ const schema = buildSchema(`
   }
 `)
 ```
+
+### Imperative configuration
+
+With imperative configuration, there is no need for type definition and schema modification.
+
+```ts
+const permissions = {
+  Query: {
+    '*': 2, // default value for all queries
+    getAnotherUser: 5 // custom value for specific query
+  },
+  Mutation: {
+    '*': 1 //default value for all mutations
+  }
+}
+const { validation } = createValidation({ permissions })
+
+const schema = buildSchema(/* GraphQL */ `
+  type Query {
+    getUser: User
+    getAnotherUser: User
+  }
+  type User {
+    name: String
+  }
+`)
+```
+
+When the `permissions` key is passed to configuration, schema directives will be ignored.
 
 ### Customizing the error message
 

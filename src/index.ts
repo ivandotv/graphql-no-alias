@@ -14,7 +14,9 @@ export type ErrorFn = typeof createErrorMsg
 /**
  * Configuration object for the createValidation function
  */
+type Permissions = { [key: string]: Permissions | number }
 export type Config = {
+  permissions?: Permissions
   /** How many aliases (calls) to allow by default */
   defaultAllow?: number
   /** directive name to use*/
@@ -31,7 +33,7 @@ export default function createValidation(config?: Config): {
   typeDefs: string
   validation: (context: ValidationContext) => ASTVisitor
 } {
-  const { directiveName, defaultAllow, errorFn } = {
+  const { directiveName, defaultAllow, errorFn, permissions } = {
     ...{
       defaultAllow: 1,
       directiveName: 'noAlias',
@@ -49,7 +51,8 @@ export default function createValidation(config?: Config): {
             context,
             directiveName,
             defaultAllow,
-            errorFn
+            errorFn,
+            permissions
           )
         }
       }
@@ -59,18 +62,57 @@ export default function createValidation(config?: Config): {
   }
 }
 
+function configPermissionWalker(
+  permissions: Permissions,
+  result: Map<string, number>,
+  parentKey?: string
+): void {
+  Object.entries(permissions).forEach(([key, value]) => {
+    if (typeof value === 'object') {
+      configPermissionWalker(
+        value,
+        result,
+        `${parentKey ? parentKey : ''}${parentKey && key ? '.' : ''}${
+          key ? key : ''
+        }`
+      )
+    } else {
+      if (key === '*') {
+        result.set(parentKey!, value)
+      } else {
+        result.set(`${parentKey ? parentKey : ''}.${key}`, value)
+      }
+    }
+  })
+}
+
+function buildPermissionTableFromConfig(permissions: any): Map<string, number> {
+  const result = new Map()
+  configPermissionWalker(permissions, result, undefined)
+
+  return result
+}
+
 function createFieldValidation(
   context: ValidationContext,
   directiveName: string,
   defaultAllow: number,
-  errorFn: typeof createErrorMsg
+  errorFn: ErrorFn,
+  permissions?: Permissions
 ): (node: FieldNode) => void {
   const schema = context.getSchema()
 
-  const allowedCount = createMaxAllowedTable(defaultAllow, directiveName, [
-    schema.getQueryType(),
-    schema.getMutationType()
-  ])
+  let allowedCount: Map<string, number>
+
+  if (permissions) {
+    allowedCount = buildPermissionTableFromConfig(permissions)
+  } else {
+    allowedCount = buildPermissionTableFromSchema(defaultAllow, directiveName, [
+      schema.getQueryType(),
+      schema.getMutationType()
+    ])
+  }
+
   const currentCount: Map<string, number> = new Map()
   //track if the error have already been reported for particular field
   const errorMap: Map<string, boolean> = new Map()
@@ -97,8 +139,8 @@ function checkCount(
 ): void {
   const nodeName = node.name.value
   const typeName = ctx.getParentType()!.name
-  const fieldKey = `${typeName}-${nodeName}`
   const typeKey = `${typeName}`
+  const fieldKey = `${typeKey}.${nodeName}`
   const maxAllowed = maxAllowedData.get(fieldKey) || maxAllowedData.get(typeKey)
 
   if (maxAllowed) {
@@ -127,7 +169,7 @@ function checkCount(
  * Process appropriate schema types (Query, Mutation) and resolve all directive values by
  * building a mapping between type fields and allowed values
  */
-function createMaxAllowedTable(
+function buildPermissionTableFromSchema(
   defaultAllow: number,
   directiveName: string,
   types: (GraphQLObjectType | undefined | null)[]
@@ -145,7 +187,7 @@ function createMaxAllowedTable(
       : undefined
 
     if (value) {
-      maxAllowed.set(`${graphType?.name}`, value)
+      maxAllowed.set(`${graphType!.name}`, value)
     }
 
     if (graphType?.astNode?.fields) {
@@ -157,7 +199,7 @@ function createMaxAllowedTable(
           field.directives
         )
         if (value) {
-          maxAllowed.set(`${graphType}-${field.name.value}`, value)
+          maxAllowed.set(`${graphType}.${field.name.value}`, value)
         }
       }
     }
@@ -193,8 +235,11 @@ function createErrorMsg(
   typeName: string,
   fieldName: string,
   maxAllowed: number,
-  _node: FieldNode,
+  node: FieldNode,
   _ctx: ValidationContext
 ): GraphQLError | string {
-  return `Allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxAllowed})`
+  return new GraphQLError(
+    `Allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxAllowed})`,
+    node
+  )
 }

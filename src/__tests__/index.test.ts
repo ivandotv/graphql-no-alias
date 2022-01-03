@@ -18,7 +18,7 @@ describe('Directive on type field', () => {
 
     const query = /* GraphQL */ `
       {
-        getUser @noAlias {
+        getUser {
           name
         }
         alias_1: getUser {
@@ -64,7 +64,7 @@ describe('Directive on type field', () => {
     )
   })
 
-  test('Set custom number of allowd aliases', () => {
+  test('Set custom number of allowed aliases', () => {
     const { validation, typeDefs } = createValidation()
     const allow = 3
 
@@ -80,7 +80,7 @@ describe('Directive on type field', () => {
     `)
 
     const query = /* GraphQL */ `
-      {
+      query Test {
         getUser {
           name
         }
@@ -105,7 +105,7 @@ describe('Directive on type field', () => {
     )
   })
 
-  test('Set default custom maximum allowed when creating the validation', () => {
+  test('Set custom default value maximum allowed when creating the validation', () => {
     const defaultAllow = 3
     const { validation, typeDefs } = createValidation({ defaultAllow })
 
@@ -192,7 +192,7 @@ describe('Directive on type field', () => {
     )
   })
 
-  test('Report one error per field', () => {
+  test('Always report single error per field', () => {
     const defaultAllow = 3
     const directiveName = 'customDirectiveName'
 
@@ -247,7 +247,7 @@ describe('Directive on type field', () => {
   })
 
   describe('Custom error', () => {
-    test('Return custom graphql error', () => {
+    test('Return custom GraphQlError instance', () => {
       const allow = 1
       const errorMessage = 'custom_error_message'
 
@@ -283,7 +283,7 @@ describe('Directive on type field', () => {
       expect(errors[0].message).toMatch(errorMessage)
     })
 
-    test('Return custom error string', () => {
+    test('Return string from error', () => {
       const allow = 1
       const errorMessage = 'custom_error_message'
 
