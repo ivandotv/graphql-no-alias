@@ -5,7 +5,11 @@ module.exports = {
     node: true,
     jest: true
   },
-  plugins: ['@typescript-eslint/eslint-plugin', 'prettier'],
+  plugins: [
+    'eslint-plugin-tsdoc',
+    '@typescript-eslint/eslint-plugin',
+    'prettier'
+  ],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -17,6 +21,7 @@ module.exports = {
     sourceType: 'module'
   },
   rules: {
+    'tsdoc/syntax': 'warn',
     '@typescript-eslint/no-unused-vars': ['off', { argsIgnorePattern: '^_' }],
     'generator-star-spacing': ['error', { before: false, after: true }],
     'space-before-function-paren': 'off',

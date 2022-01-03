@@ -13,6 +13,7 @@ specifiers:
   eslint-plugin-jest: ^25.3.4
   eslint-plugin-prettier: ^4.0.0
   eslint-plugin-promise: ^6.0.0
+  eslint-plugin-tsdoc: ^0.2.14
   graphql: ^16.2.0
   husky: ^7.0.4
   jest: ^27.4.5
@@ -36,6 +37,7 @@ devDependencies:
   eslint-plugin-jest: 25.3.4_cac5dc51ed5a5c1ae220309c27c6e099
   eslint-plugin-prettier: 4.0.0_1c588f61426b1faf18812943f1678311
   eslint-plugin-promise: 6.0.0_eslint@8.6.0
+  eslint-plugin-tsdoc: 0.2.14
   graphql: 16.2.0
   husky: 7.0.4
   jest: 27.4.5
@@ -1778,6 +1780,19 @@ packages:
       read-yaml-file: 1.1.0
     dev: true
 
+  /@microsoft/tsdoc-config/0.15.2:
+    resolution: {integrity: sha512-mK19b2wJHSdNf8znXSMYVShAHktVr/ib0Ck2FA3lsVBSEhSI/TfXT7DJQkAYgcztTuwazGcg58ZjYdk0hTCVrA==}
+    dependencies:
+      '@microsoft/tsdoc': 0.13.2
+      ajv: 6.12.6
+      jju: 1.4.0
+      resolve: 1.19.0
+    dev: true
+
+  /@microsoft/tsdoc/0.13.2:
+    resolution: {integrity: sha512-WrHvO8PDL8wd8T2+zBGKrMwVL5IyzR3ryWUsl0PXgEV0QHup4mTLi0QcATefGI6Gx9Anu7vthPyyyLpY0EpiQg==}
+    dev: true
+
   /@nodelib/fs.scandir/2.1.5:
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
     engines: {node: '>= 8'}
@@ -3290,6 +3305,13 @@ packages:
       eslint: 8.6.0
     dev: true
 
+  /eslint-plugin-tsdoc/0.2.14:
+    resolution: {integrity: sha512-fJ3fnZRsdIoBZgzkQjv8vAj6NeeOoFkTfgosj6mKsFjX70QV256sA/wq+y/R2+OL4L8E79VVaVWrPeZnKNe8Ng==}
+    dependencies:
+      '@microsoft/tsdoc': 0.13.2
+      '@microsoft/tsdoc-config': 0.15.2
+    dev: true
+
   /eslint-scope/5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
     engines: {node: '>=8.0.0'}
@@ -4727,6 +4749,10 @@ packages:
       - utf-8-validate
     dev: true
 
+  /jju/1.4.0:
+    resolution: {integrity: sha1-o6vicYryQaKykE+EpiWXDzia4yo=}
+    dev: true
+
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
     dev: true
@@ -6095,6 +6121,13 @@ packages:
   /resolve/1.17.0:
     resolution: {integrity: sha512-ic+7JYiV8Vi2yzQGFWOkiZD5Z9z7O2Zhm9XMaTxdJExKasieFCr+yXZ/WmXsckHiKl12ar0y6XiXDx3m4RHn1w==}
     dependencies:
+      path-parse: 1.0.7
+    dev: true
+
+  /resolve/1.19.0:
+    resolution: {integrity: sha512-rArEXAgsBG4UgRGcynxWIWKFvh/XZCcS8UJdHhwy91zwAvCZIbcs+vAbflgBnNjYMs/i/i+/Ux6IZhML1yPvxg==}
+    dependencies:
+      is-core-module: 2.8.0
       path-parse: 1.0.7
     dev: true
 

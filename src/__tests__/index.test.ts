@@ -106,8 +106,8 @@ describe('Directive on type field', () => {
   })
 
   test('Set default custom maximum allowed when creating the validation', () => {
-    const allow = 3
-    const { validation, typeDefs } = createValidation(allow)
+    const defaultAllow = 3
+    const { validation, typeDefs } = createValidation({ defaultAllow })
 
     const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}
@@ -142,15 +142,18 @@ describe('Directive on type field', () => {
 
     expect(errors).toHaveLength(1)
     expect(errors[0].message).toMatch(
-      new RegExp(`Allowed number of calls.+${allow}`, 'i')
+      new RegExp(`Allowed number of calls.+${defaultAllow}`, 'i')
     )
   })
 
   test('Set custom directive name', () => {
-    const allow = 3
+    const defaultAllow = 3
     const directiveName = 'customDirectiveName'
 
-    const { validation, typeDefs } = createValidation(allow, directiveName)
+    const { validation, typeDefs } = createValidation({
+      defaultAllow,
+      directiveName
+    })
 
     const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}
@@ -185,15 +188,18 @@ describe('Directive on type field', () => {
 
     expect(errors).toHaveLength(1)
     expect(errors[0].message).toMatch(
-      new RegExp(`Allowed number of calls.+${allow}`, 'i')
+      new RegExp(`Allowed number of calls.+${defaultAllow}`, 'i')
     )
   })
 
   test('Report one error per field', () => {
-    const allow = 3
+    const defaultAllow = 3
     const directiveName = 'customDirectiveName'
 
-    const { validation, typeDefs } = createValidation(allow, directiveName)
+    const { validation, typeDefs } = createValidation({
+      defaultAllow,
+      directiveName
+    })
 
     const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}
@@ -236,7 +242,7 @@ describe('Directive on type field', () => {
 
     expect(errors).toHaveLength(1)
     expect(errors[0].message).toMatch(
-      new RegExp(`Allowed number of calls.+${allow}`, 'i')
+      new RegExp(`Allowed number of calls.+${defaultAllow}`, 'i')
     )
   })
 
@@ -247,11 +253,7 @@ describe('Directive on type field', () => {
 
       const errorFn = jest.fn().mockReturnValue(new GraphQLError(errorMessage))
 
-      const { validation, typeDefs } = createValidation(
-        undefined,
-        undefined,
-        errorFn
-      )
+      const { validation, typeDefs } = createValidation({ errorFn })
 
       const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}
@@ -287,11 +289,7 @@ describe('Directive on type field', () => {
 
       const errorFn = jest.fn().mockReturnValue(errorMessage)
 
-      const { validation, typeDefs } = createValidation(
-        undefined,
-        undefined,
-        errorFn
-      )
+      const { validation, typeDefs } = createValidation({ errorFn })
 
       const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}

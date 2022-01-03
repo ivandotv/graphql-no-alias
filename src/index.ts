@@ -12,19 +12,34 @@ import {
 export type ErrorFn = typeof createErrorMsg
 
 /**
- * Creates validation object with needed type declarations and validation function
- * @param [defaultAllow] - how many aliases to allow by default
- * @param [directiveName] - direactive name to use
- * @param [errorFn] - function that will return GraphQLError when the validation fails
+ * Configuration object for the createValidation function
  */
-export default function createValidation(
-  defaultAllow = 1,
-  directiveName = 'noAlias',
-  errorFn?: typeof createErrorMsg
-): {
+export type Config = {
+  /** How many aliases (calls) to allow by default */
+  defaultAllow?: number
+  /** directive name to use*/
+  directiveName?: string
+  /** function that should return a graphql erorr or string when the validation fails*/
+  errorFn?: ErrorFn
+}
+/**
+ * Creates validation
+ * @param config - {@link Config}
+ * @returns validation
+ */
+export default function createValidation(config?: Config): {
   typeDefs: string
   validation: (context: ValidationContext) => ASTVisitor
 } {
+  const { directiveName, defaultAllow, errorFn } = {
+    ...{
+      defaultAllow: 1,
+      directiveName: 'noAlias',
+      errorFn: createErrorMsg
+    },
+    ...(config || {})
+  }
+
   return {
     typeDefs: `directive @${directiveName}(allow: Int = ${defaultAllow}) on OBJECT | FIELD_DEFINITION`,
     validation(context: ValidationContext): ASTVisitor {
@@ -34,7 +49,7 @@ export default function createValidation(
             context,
             directiveName,
             defaultAllow,
-            errorFn ? errorFn : createErrorMsg
+            errorFn
           )
         }
       }
@@ -71,12 +86,6 @@ function createFieldValidation(
 
 /**
  * Checks if allowed alias count has been exceeded
- * @param ctx
- * @param node
- * @param maxAllowedData
- * @param currentCountData
- * @param errorFn
- * @param errorMap
  */
 function checkCount(
   ctx: ValidationContext,
@@ -176,9 +185,9 @@ function processDirective(
 
 /**
  * Creates custom GraphQLError instance
- * @param typeName Object type name
- * @param fieldName  Object field name
- * @param maxAllowed  max allowed count that has been reached
+ * @param typeName - Object type name
+ * @param fieldName - Object field name
+ * @param maxAllowed - max allowed count that has been reached
  */
 function createErrorMsg(
   typeName: string,
