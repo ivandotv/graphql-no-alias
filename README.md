@@ -159,7 +159,7 @@ On the client:
 
 The declaration can be customized to have a different name, different default `allow` value, and it can also be passed a custom error function that is executed when the validation fails.
 
-In the next example, `validation` will allow `3` calls to the same field by default, directive name will be changed to `NoBatchCalls`, and there will be a custom error message.
+In the next example, `validation` will allow `3` calls to the same field by default, the directive name will be changed to `NoBatchCalls`, and there will be a custom error message.
 
 ```ts
 const { typeDefs, validation } = createValidation(3,'NoBatchCalls',(
@@ -185,6 +185,27 @@ const schema = buildSchema(`
     getFriends: [User]!
   }
 `)
+```
+
+### Customizing the error message
+
+Continuing from the previous example, the `error` message that is reported when the validation fails can also be customized. You can return a complete `GrahphQLError` or just a `string` that will be used as a message.
+
+```ts
+const { typeDefs, validation } = createValidation(3,'NoBatchCalls',(
+  typeName: string, //type name Query or Mutation
+  fieldName: string,
+  maxAllowed: number,
+  node: FieldNode,
+  ctx: ValidationContext
+): GraphQLError {
+  return new GraphQLError(
+    `Hey! allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxAllowed})`
+  )
+  //or
+  return 'just the message'
+}
+)
 ```
 
 ### License

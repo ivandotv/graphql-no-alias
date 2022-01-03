@@ -240,19 +240,20 @@ describe('Directive on type field', () => {
     )
   })
 
-  test('Set custom error message', () => {
-    const allow = 1
-    const errorMessage = 'custom_error_message'
+  describe('Custom error', () => {
+    test('Return custom graphql error', () => {
+      const allow = 1
+      const errorMessage = 'custom_error_message'
 
-    const errorFn = jest.fn().mockReturnValue(new GraphQLError(errorMessage))
+      const errorFn = jest.fn().mockReturnValue(new GraphQLError(errorMessage))
 
-    const { validation, typeDefs } = createValidation(
-      undefined,
-      undefined,
-      errorFn
-    )
+      const { validation, typeDefs } = createValidation(
+        undefined,
+        undefined,
+        errorFn
+      )
 
-    const schema = buildSchema(/* GraphQL */ `
+      const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}
 
       type Query {
@@ -263,20 +264,61 @@ describe('Directive on type field', () => {
       }
     `)
 
-    const query = /* GraphQL */ `
-      {
-        getUser {
-          name
+      const query = /* GraphQL */ `
+        {
+          getUser {
+            name
+          }
+          alias_1: getUser {
+            name
+          }
         }
-        alias_1: getUser {
-          name
-        }
-      }
-    `
-    const doc = parse(query)
-    const errors = validate(schema, doc, [validation])
+      `
+      const doc = parse(query)
+      const errors = validate(schema, doc, [validation])
 
-    expect(errors).toHaveLength(1)
-    expect(errors[0].message).toMatch(errorMessage)
+      expect(errors).toHaveLength(1)
+      expect(errors[0].message).toMatch(errorMessage)
+    })
+
+    test('Return custom error string', () => {
+      const allow = 1
+      const errorMessage = 'custom_error_message'
+
+      const errorFn = jest.fn().mockReturnValue(errorMessage)
+
+      const { validation, typeDefs } = createValidation(
+        undefined,
+        undefined,
+        errorFn
+      )
+
+      const schema = buildSchema(/* GraphQL */ `
+      ${typeDefs}
+
+      type Query {
+        getUser: User @noAlias(allow:${allow})
+      }
+      type User {
+        name: String
+      }
+    `)
+
+      const query = /* GraphQL */ `
+        {
+          getUser {
+            name
+          }
+          alias_1: getUser {
+            name
+          }
+        }
+      `
+      const doc = parse(query)
+      const errors = validate(schema, doc, [validation])
+
+      expect(errors).toHaveLength(1)
+      expect(errors[0].message).toMatch(errorMessage)
+    })
   })
 })

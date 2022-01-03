@@ -9,6 +9,8 @@ import {
 
 //https://graphql.org/graphql-js/language/#visitor
 
+export type ErrorFn = typeof createErrorMsg
+
 /**
  * Creates validation object with needed type declarations and validation function
  * @param [defaultAllow] - how many aliases to allow by default
@@ -96,7 +98,12 @@ function checkCount(
     if (currentCount > maxAllowed) {
       // check if already reported for the current field
       if (!errorMap.get(fieldKey)) {
-        ctx.reportError(errorFn(typeName, nodeName, maxAllowed, node, ctx))
+        const errorResult = errorFn(typeName, nodeName, maxAllowed, node, ctx)
+        ctx.reportError(
+          typeof errorResult === 'string'
+            ? new GraphQLError(errorResult)
+            : errorResult
+        )
         errorMap.set(fieldKey, true)
       }
 
@@ -179,8 +186,6 @@ function createErrorMsg(
   maxAllowed: number,
   _node: FieldNode,
   _ctx: ValidationContext
-): GraphQLError {
-  return new GraphQLError(
-    `Allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxAllowed})`
-  )
+): GraphQLError | string {
+  return `Allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxAllowed})`
 }
