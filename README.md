@@ -43,7 +43,7 @@ npm i graphql-no-alias
 There are two ways to use this validation:
 
 - Using the `directive` in the `schema`
-- [Using the configuration options](#Imperative-configuration)
+- [Using the configuration options](#Imperative-configuration)(better performance)
 
 ### Using the directive
 
@@ -192,6 +192,7 @@ const schema = buildSchema(`
 ### Imperative configuration
 
 With imperative configuration, there is no need for type definition and schema modification.
+This results in better performance since the `schema` is not analized (not looking for directives).
 
 ```ts
 const permissions = {

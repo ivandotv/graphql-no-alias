@@ -27,7 +27,7 @@ export type Config = {
 /**
  * Creates validation
  * @param config - {@link Config}
- * @returns validation
+ * @returns validation function
  */
 export default function createValidation(config?: Config): {
   typeDefs: string
