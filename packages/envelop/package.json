@@ -1,9 +1,11 @@
 {
-  "name": "graphql-no-alias",
+  "name": "envelop-no-alias",
   "version": "1.0.1",
   "private": false,
-  "description": "No alias directive for graphql mutation and query types. It can limit the amount of alias fields that can be used for queries and mutations. Preventing batch attacks.",
+  "description": "Graphql envelop plugin for no alias directive for graphql mutation and query types. It can limit the amount of alias fields that can be used for queries and mutations. Preventing batch attacks.",
   "keywords": [
+    "@envelop",
+    "envelop",
     "graphql",
     "graphql directive",
     "graphql validation",
@@ -13,10 +15,10 @@
   ],
   "author": "ivandotv",
   "license": "MIT",
-  "main": "./dist/prod/graphql-no-alias.js",
+  "main": "./dist/prod/envelop-no-alias.js",
   "exports": {
-    "import": "./dist/prod/graphql-no-alias.esm.js",
-    "require": "./dist/prod/graphql-no-alias.js"
+    "import": "./dist/prod/envelop-no-alias.esm.js",
+    "require": "./dist/prod/envelop-no-alias.js"
   },
   "types": "./dist/types/index.d.ts",
   "files": [
@@ -29,9 +31,9 @@
     "lint:ci": "pnpm lint:check && pnpm format:check",
     "format": "prettier --write src/**",
     "format:check": "prettier --check src/**",
-    "test": "NODE_ENV=test jest --verbose --coverage --no-cache",
-    "test:watch": "NODE_ENV=test jest --watch",
-    "test:ci": "NODE_ENV=test jest --runInBand --ci --coverage --coverageDirectory=coverage",
+    "test": "jest --verbose --coverage --no-cache",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --runInBand --ci --coverage --coverageDirectory=coverage",
     "build:prod": "NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs --target node --output dist/prod",
     "build": "rm -rf ./dist && pnpm build:prod",
     "prepublishOnly": "pnpm build",
@@ -45,13 +47,20 @@
     "url": "https://github.com/ivandotv/graphql-no-alias/issues"
   },
   "homepage": "https://github.com/ivandotv/graphql-no-alias#readme",
+  "dependencies": {
+    "graphql-no-alias": "../no-alias"
+  },
   "peerDependencies": {
-    "graphql": "^16.2.0"
+    "@envelop/core": "^1.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/preset-env": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
+    "@changesets/cli": "^2.19.0",
+    "@envelop/core": "^1.7.1",
+    "@envelop/testing": "^3.0.1",
+    "@envelop/types": "^1.5.1",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
     "@typescript-eslint/parser": "^5.8.1",

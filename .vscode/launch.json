@@ -17,12 +17,12 @@
       ]
     },
     {
-      "name": "Current test file",
+      "name": "no alias test file",
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceRoot}",
       // "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "program": "${workspaceFolder}/node_modules/jest/bin/jest.js", //pnpm fix
+      "program": "${workspaceFolder}/packages/no-alias/node_modules/jest/bin/jest.js", //pnpm fix
       "args": [
         "${relativeFile}",
         "--no-cache",
@@ -39,19 +39,26 @@
       ]
     },
     {
-      "name": "Nodemon",
+      "name": "Envelop test file",
       "type": "node",
-      "request": "attach",
-      "processId": "${command:PickProcess}",
-      "restart": true,
+      "request": "launch",
+      "cwd": "${workspaceFolder}/packages/envelop",
+      // "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "program": "${workspaceFolder}/packages/envelop/node_modules/jest/bin/jest.js", //pnpm fix
+      "args": [
+        "${relativeFile}",
+        "--no-cache",
+        "--watchAll=false",
+        "--runInBand"
+      ],
+      "console": "integratedTerminal",
       "protocol": "inspector",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
       "skipFiles": [
         "${workspaceFolder}/node_modules/**/*.js",
         "<node_internals>/**/*.js"
-      ],
-      // "localRoot": "${workspaceFolder}/src/regexparam",
-      // "remoteRoot": "/",
-      "stopOnEntry": true
+      ]
     }
   ]
 }

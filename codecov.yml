@@ -3,10 +3,10 @@ coverage:
     project:
       default:
         target: auto
-      dumba:
+      graphql-no-alias:
         target: auto
         flags:
-          - dumba
+          - graphql-no-alias
 
 comment:
   layout: 'reach, diff, flags, files'
@@ -16,7 +16,7 @@ comment:
   require_head: true
 
 flags:
-  dumba:
+  graphql-no-alias:
     paths:
-      - packages/dumba/
+      - packages/graphql-no-alias/
     carryforward: true
