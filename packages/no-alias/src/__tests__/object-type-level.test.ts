@@ -1,5 +1,5 @@
 import { buildSchema, parse, validate } from 'graphql'
-import createValidation from '../'
+import createValidation from '..'
 
 describe('Object type level validation', () => {
   test('Object level directive applies to all fields', () => {
