@@ -1,4 +1,4 @@
-import { buildSchema, GraphQLError, parse, validate } from 'graphql'
+import { buildSchema, parse, validate } from 'graphql'
 import createValidation from '../'
 
 describe('Object type level validation', () => {
