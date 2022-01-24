@@ -19,11 +19,11 @@
     "incremental": true,
     "jsx": "preserve"
   },
-  "include": ["src/**/*"],
+  "include": ["packages/no-alias/src/**/*"],
   "exclude": [
     "**/node_modules",
-    "src/**/__tests__",
-    "src/**/*.test.ts",
-    "src/**/*.spec.ts"
+    "packages/no-alias/src/**/__tests__",
+    "packages/no-alias/src/**/*.test.ts",
+    "packages/no-alias/src/**/*.spec.ts"
   ]
 }

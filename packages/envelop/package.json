@@ -1,0 +1,82 @@
+{
+  "name": "envelop-no-alias",
+  "version": "0.0.0",
+  "private": false,
+  "description": "Graphql envelop plugin for no alias graphql directive. It can limit the amount of alias fields that can be used for queries and mutations. Preventing batch attacks.",
+  "keywords": [
+    "@envelop",
+    "envelop",
+    "graphql",
+    "graphql directive",
+    "graphql validation",
+    "graphql alias",
+    "graphql query alias",
+    "graphql mutation alias"
+  ],
+  "author": "ivandotv",
+  "license": "MIT",
+  "main": "./dist/prod/envelop-no-alias.js",
+  "exports": {
+    "import": "./dist/prod/envelop-no-alias.esm.js",
+    "require": "./dist/prod/envelop-no-alias.js"
+  },
+  "types": "./dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "lint": "eslint --fix \"src/**/\"",
+    "lint:check": "eslint \"src/**/\"",
+    "lint:ci": "pnpm lint:check && pnpm format:check",
+    "format": "prettier --write src/**",
+    "format:check": "prettier --check src/**",
+    "test": "jest --verbose --coverage --no-cache",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --runInBand --ci --coverage --coverageDirectory=coverage",
+    "build:prod": "NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs --target node --output dist/prod",
+    "build": "rm -rf ./dist && pnpm build:prod",
+    "prepublishOnly": "pnpm build",
+    "release": "pnpm run prepublishOnly && pnpm changeset publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivandotv/graphql-no-alias.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ivandotv/graphql-no-alias/issues"
+  },
+  "homepage": "https://github.com/ivandotv/graphql-no-alias#readme",
+  "dependencies": {
+    "graphql-no-alias": "../no-alias"
+  },
+  "peerDependencies": {
+    "@envelop/core": "^1.7.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@changesets/cli": "^2.19.0",
+    "@envelop/core": "^1.7.1",
+    "@envelop/testing": "^3.0.1",
+    "@envelop/types": "^1.5.1",
+    "@types/jest": "^27.4.0",
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
+    "eslint": "^8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^25.3.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-tsdoc": "^0.2.14",
+    "graphql": "^16.2.0",
+    "jest": "^27.4.5",
+    "jest-watch-typeahead": "^1.0.0",
+    "lint-staged": "^12.1.4",
+    "microbundle": "^0.14.2",
+    "prettier": "^2.5.1",
+    "shx": "^0.3.3",
+    "typescript": "^4.5.5"
+  }
+}

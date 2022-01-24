@@ -1,5 +1,5 @@
 import { buildSchema, GraphQLError, parse, validate } from 'graphql'
-import createValidation from '../'
+import createValidation from '..'
 
 describe('Directive on type field', () => {
   test('If the directive is not present, ignore all aliases', () => {
@@ -48,7 +48,7 @@ describe('Directive on type field', () => {
 
     const query = /* GraphQL */ `
       {
-        getUser @noAlias {
+        getUser {
           name
         }
         alias_1: getUser {

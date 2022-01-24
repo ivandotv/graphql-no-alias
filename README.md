@@ -4,10 +4,26 @@
 ![Codecov](https://img.shields.io/codecov/c/gh/ivandotv/graphql-no-alias)
 [![GitHub license](https://img.shields.io/github/license/ivandotv/graphql-no-alias)](https://github.com/ivandotv/graphql-no-alias/blob/main/LICENSE)
 
-Graphql validation with accompanying directive to limit the number of `alias` queries and mutations you can use.
-It effectively disables batching of queries and mutations.
+<!-- toc -->
 
-## Why
+- [Inspiration](#inspiration)
+- [Instalation](#instalation)
+- [Usage](#usage)
+  - [Using the directive](#using-the-directive)
+  - [Schema setup](#schema-setup)
+    - [Object type](#object-type)
+    - [Field type](#field-type)
+  - [Customizing the declaration](#customizing-the-declaration)
+  - [Imperative configuration](#imperative-configuration)
+  - [Customizing the error message](#customizing-the-error-message)
+- [Envelop Plugin](#envelop-plugin)
+  - [License](#license)
+
+<!-- tocstop -->
+
+## Inspiration
+
+Graphql validation with accompanying directive to limit the number of `alias` queries and mutations that can be sent to the GraphQL server.
 
 It will disable certain kinds of attacks that look like this.
 
@@ -239,6 +255,10 @@ const { typeDefs, validation } = createValidation({errorFn:(
 }
 })
 ```
+
+## Envelop Plugin
+
+If you are using [GraphQL Envelop](https://www.envelop.dev/). I have made a (plugin)[packages/envelop/README.md] that uses this directive.
 
 ### License
 

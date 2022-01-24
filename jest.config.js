@@ -1,20 +1,15 @@
 module.exports = {
-  testMatch: [
-    '<rootDir>/src/**/?(*.)+(spec|test).[jt]s?(x)',
-    '<rootDir>/tests/?(*.)+(spec|test).[jt]s?(x)'
-  ],
-  testEnvironment: 'node',
-  moduleDirectories: ['node_modules', 'src'],
+  testEnvironment: 'jsdom',
   watchPlugins: [
     'jest-watch-typeahead/filename',
     'jest-watch-typeahead/testname'
   ],
-  collectCoverageFrom: [
-    '<rootDir>/src/**',
-    '!<rootDir>/src/globals.d.ts',
-    '!<rootDir>/src/__tests__/**',
-    '!<rootDir>/src/__fixtures__/**'
-  ],
+  globals: {
+    __DEV__: true,
+    __VERSION__: true,
+    __BUILD_DATE__: true,
+    __COMMIT_SHA__: true
+  },
   coverageThreshold: {
     global: {
       branches: 80,

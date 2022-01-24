@@ -1,0 +1,30 @@
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+      graphql-no-alias:
+        target: auto
+        flags:
+          - graphql-no-alias
+      envelop:
+        target: auto
+        flags:
+          - envelop
+
+comment:
+  layout: 'reach, diff, flags, files'
+  behavior: default
+  require_changes: false
+  require_base: true
+  require_head: true
+
+flags:
+  graphql-no-alias:
+    paths:
+      - packages/graphql-no-alias/
+    carryforward: true
+  envelop:
+    paths:
+      - packages/envelop/
+    carryforward: true
