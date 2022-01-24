@@ -1,8 +1,8 @@
 {
   "name": "envelop-no-alias",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "private": false,
-  "description": "Graphql envelop plugin for no alias directive for graphql mutation and query types. It can limit the amount of alias fields that can be used for queries and mutations. Preventing batch attacks.",
+  "description": "Graphql envelop plugin for no alias graphql directive. It can limit the amount of alias fields that can be used for queries and mutations. Preventing batch attacks.",
   "keywords": [
     "@envelop",
     "envelop",

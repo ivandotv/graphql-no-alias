@@ -48,7 +48,7 @@ describe('Directive on type field', () => {
 
     const query = /* GraphQL */ `
       {
-        getUser @noAlias {
+        getUser {
           name
         }
         alias_1: getUser {
