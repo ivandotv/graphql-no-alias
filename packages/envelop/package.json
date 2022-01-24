@@ -48,7 +48,7 @@
   },
   "homepage": "https://github.com/ivandotv/graphql-no-alias#readme",
   "dependencies": {
-    "graphql-no-alias": "../no-alias"
+    "graphql-no-alias": "workspace:*"
   },
   "peerDependencies": {
     "@envelop/core": "^1.7.1"
