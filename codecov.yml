@@ -7,6 +7,10 @@ coverage:
         target: auto
         flags:
           - graphql-no-alias
+      envelop:
+        target: auto
+        flags:
+          - envelop
 
 comment:
   layout: 'reach, diff, flags, files'
@@ -19,4 +23,8 @@ flags:
   graphql-no-alias:
     paths:
       - packages/graphql-no-alias/
+    carryforward: true
+  envelop:
+    paths:
+      - packages/envelop/
     carryforward: true
