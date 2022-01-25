@@ -6,22 +6,19 @@
 
 <!-- toc -->
 
-- [Inspiration](#inspiration)
 - [Instalation](#instalation)
 - [Usage](#usage)
-  - [Using the directive](#using-the-directive)
-  - [Schema setup](#schema-setup)
-    - [Object type](#object-type)
-    - [Field type](#field-type)
-  - [Customizing the declaration](#customizing-the-declaration)
-  - [Imperative configuration](#imperative-configuration)
-  - [Customizing the error message](#customizing-the-error-message)
+  * [Using the directive](#using-the-directive)
+  * [Schema setup](#schema-setup)
+    + [Object type usage](#object-type-usage)
+    + [Field type usage](#field-type-usage)
+  * [Customizing the declaration](#customizing-the-declaration)
+  * [Imperative configuration](#imperative-configuration)
+  * [Customizing the error message](#customizing-the-error-message)
 - [Envelop Plugin](#envelop-plugin)
-  - [License](#license)
+  * [License](#license)
 
 <!-- tocstop -->
-
-## Inspiration
 
 Graphql validation with accompanying directive to limit the number of `alias` queries and mutations that can be sent to the GraphQL server.
 
@@ -63,7 +60,8 @@ There are two ways to use this validation:
 
 ### Using the directive
 
-There are two parts, a `directive` that needs to be added to the `schema`, and a validation function that needs to be added to the `GraphQl` `validationRules` array.
+There are two parts, a `@noAlias` directive that needs to be added to the `schema`, and a validation function that needs to be added to the GraphQL server `validationRules` array.
+In the example that follows `hello` query will be allowed 2 calls per request, while all the mutations will be limited to 1 call per mutation by setting the `@noAlias` directive directly on the `Mutation` type.
 
 ```js
 const express = require('express')
@@ -102,9 +100,9 @@ app.listen(4000)
 
 ### Schema setup
 
-The declaration can be used on object `type` or type `fields`. When the declaration is used on the `type` it affects all the fields of that type (Query or Mutation).
+The declaration can be used on the object `type` (Query or Mutation) or type `fields` (particular query or mutation). When the declaration is used on the `type` it affects all the fields of that type (Query or Mutation).
 
-#### Object type
+#### Object type usage
 
 In the next example **all** queries will be limited to only **one call**.
 
@@ -117,19 +115,19 @@ const schema = buildSchema(`
 `)
 ```
 
-client:
+client reqeust:
 
 ```js
 query {
   getUser
   alias_get_user: getUser // Error - validation fails
-getFriends
-alias_get_friends: getFriends // Error - validation fails
+  getFriends
+  alias_get_friends: getFriends // Error - validation fails
 }
 ```
 
 The directive also accepts one parameter `allow` which declares the default number of allowed aliases.
-In the next example, all queries will be allowed to have `3` batch calls
+In the next example, all queries will be allowed to have `3` calls (one original, two aliases)
 
 ```js
 var schema = buildSchema(`
@@ -151,7 +149,7 @@ On the client:
   }
 ```
 
-#### Field type
+#### Field type usage
 
 Usage on type fields is the same as on the object type, one difference is that when combined with object directive the one on the field will take precedence.
 
@@ -166,21 +164,21 @@ var schema = buildSchema(`
 `)
 ```
 
-On the client:
+client request:
 
 ```js
   query {
     getUser
     alias_2: getUser
     alias_3: getUser
-	getFriends
-	alias_1: getFriends // Error - validation fails
+	  getFriends
+	  alias_1: getFriends // Error - validation fails
   }
 ```
 
 ### Customizing the declaration
 
-The declaration can be customized to have a different name, different default `allow` values, and it can also be passed a custom error function that is executed when the validation fails.
+The declaration can be customized to have a different name, and different default `allow` values, and it can also be passed a custom error function that is executed when the validation fails.
 
 In the next example, `validation` will allow `3` calls to the same field by default, the directive name will be changed to `NoBatchCalls`, and there will be a custom error message.
 
@@ -208,7 +206,7 @@ const schema = buildSchema(`
 ### Imperative configuration
 
 With imperative configuration, there is no need for type definition and schema modification.
-This results in better performance since the `schema` is not analized (not looking for directives).
+This results in better performance since the `schema` is not analyzed (not looking for directives).
 
 ```ts
 const permissions = {
@@ -233,11 +231,11 @@ const schema = buildSchema(/* GraphQL */ `
 `)
 ```
 
-When the `permissions` key is passed to configuration, schema directives will be ignored.
+Please note that when the `permissions` object is passed to the configuration, schema directives will be ignored.
 
 ### Customizing the error message
 
-Continuing from the previous example, the `error` message that is reported when the validation fails can also be customized. You can return a complete `GrahphQLError` or just a `string` that will be used as a message.
+Continuing from the previous example, the `error` message that is reported when the validation fails can also be customized. You can return a `GrahphQLError` instance or just a `string` that will be used as the error message.
 
 ```ts
 const { typeDefs, validation } = createValidation({errorFn:(
