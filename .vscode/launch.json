@@ -17,12 +17,12 @@
       ]
     },
     {
-      "name": "no alias test file",
+      "name": "No Alias test file",
       "type": "node",
       "request": "launch",
-      "cwd": "${workspaceRoot}",
+      "cwd": "${workspaceFolder}/packages/envelop",
       // "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "program": "${workspaceFolder}/packages/no-alias/node_modules/jest/bin/jest.js", //pnpm fix
+      "program": "${workspaceFolder}/packages/envelop/node_modules/jest/bin/jest.js", //pnpm fix
       "args": [
         "${relativeFile}",
         "--no-cache",
