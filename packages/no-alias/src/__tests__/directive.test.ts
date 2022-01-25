@@ -319,4 +319,37 @@ describe('Directive on type field', () => {
       expect(errors[0].message).toMatch(errorMessage)
     })
   })
+
+  test('Handle the case when all queries use alias', () => {
+    const { validation, typeDefs } = createValidation()
+    const defaultCount = 1
+
+    const schema = buildSchema(/* GraphQL */ `
+      ${typeDefs}
+
+      type Query {
+        getUser: User @noAlias
+      }
+      type User {
+        name: String
+      }
+    `)
+
+    const query = /* GraphQL */ `
+      {
+        alias_1: getUser {
+          name
+        }
+        alias_2: getUser {
+          name
+        }
+      }
+    `
+    const doc = parse(query)
+    const errors = validate(schema, doc, [validation])
+    expect(errors).toHaveLength(1)
+    expect(errors[0].message).toMatch(
+      new RegExp(`Allowed number of calls.+${defaultCount}`, 'i')
+    )
+  })
 })
