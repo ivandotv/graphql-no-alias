@@ -8,15 +8,15 @@
 
 - [Instalation](#instalation)
 - [Usage](#usage)
-  * [Using the directive](#using-the-directive)
-  * [Schema setup](#schema-setup)
-    + [Object type usage](#object-type-usage)
-    + [Field type usage](#field-type-usage)
-  * [Customizing the declaration](#customizing-the-declaration)
-  * [Imperative configuration](#imperative-configuration)
-  * [Customizing the error message](#customizing-the-error-message)
+  - [Using the directive](#using-the-directive)
+  - [Schema setup](#schema-setup)
+    - [Object type usage](#object-type-usage)
+    - [Field type usage](#field-type-usage)
+  - [Customizing the declaration](#customizing-the-declaration)
+  - [Imperative configuration](#imperative-configuration)
+  - [Customizing the error message](#customizing-the-error-message)
 - [Envelop Plugin](#envelop-plugin)
-  * [License](#license)
+  - [License](#license)
 
 <!-- tocstop -->
 
@@ -25,7 +25,7 @@ Graphql validation with accompanying directive to limit the number of `alias` qu
 It will disable certain kinds of attacks that look like this.
 
 ```ts
-  // batch query attack (hello DDOS)
+  // batch query attack (hello DoS)
   query {
     getUsers(first: 1000)
     second: getUsers(first: 2000)
