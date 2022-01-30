@@ -1,5 +1,11 @@
 # graphql-no-alias
 
+## 1.0.4
+
+### Patch Changes
+
+- e38cff0: update readme
+
 ## 1.0.3
 
 ### Patch Changes
