@@ -1,10 +1,18 @@
 # envelop-no-alias
 
+## 1.0.1
+
+### Patch Changes
+
+- Updated dependencies [6bffb8d]
+  - graphql-no-alias@1.0.3
+
 ## 1.0.0
+
 ### Major Changes
 
 - f769837: Initial publish of `envelop-no-alias`
-  
+
   Update readme for: `graphql-no-alias`
 
 ### Patch Changes
