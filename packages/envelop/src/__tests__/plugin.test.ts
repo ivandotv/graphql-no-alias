@@ -1,11 +1,10 @@
 import { assertSingleExecutionValue, createTestkit } from '@envelop/testing'
 import { buildSchema } from 'graphql'
-import createValidation from 'graphql-no-alias'
-import { useNoAlias } from '../'
+import { useNoAlias, createTypeDefinition } from '../'
 
 describe('No Alias plugin', () => {
   test('If the directive is not used, it does not fail', async () => {
-    const { typeDefs } = createValidation()
+    const typeDefs = createTypeDefinition()
     const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}
 
@@ -34,7 +33,7 @@ describe('No Alias plugin', () => {
   })
 
   test('Do not allow double query', async () => {
-    const { typeDefs } = createValidation()
+    const typeDefs = createTypeDefinition()
     const defaultAllow = 1
     const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}

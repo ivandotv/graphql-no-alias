@@ -13,11 +13,34 @@ npm Install envelop-no-alias
 
 ```ts
 import { envelop } from '@envelop/core'
-import { useNoAlias, NoAliasConfig } from 'envelop-no-alias'
+import { useNoAlias, Config } from 'envelop-no-alias'
 
 //optional configuration
-const config: NoAliasConfig = {}
+const config: Config = {}
 const getEnveloped = envelop({
   plugins: [useNoAlias(config)]
+})
+```
+
+Or if you are using type definitions:
+
+```ts
+import { envelop } from '@envelop/core'
+import { useNoAlias, createTypeDefinition } from 'envelop-no-alias'
+
+//add type defintion to schema
+const schema = buildSchema(`
+  ${createTypeDefinition()}
+  type Query {
+    hello: String @noAlias(allow:2)
+  }
+
+  type Mutation @noAlias {
+    muteOne(n:Int):String
+  }
+`)
+
+const getEnveloped = envelop({
+  plugins: [useNoAlias()]
 })
 ```

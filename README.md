@@ -68,7 +68,7 @@ const express = require('express')
 const { graphqlHTTP } = require('express-graphql')
 const { buildSchema } = require('graphql')
 
-const createValidation = require('graphql-no-alias')
+const { createValidation } = require('graphql-no-alias')
 
 // get the validation function and type definition of the declaration
 const { typeDefs, validation } = createValidation()
@@ -205,7 +205,7 @@ const schema = buildSchema(`
 
 ### Imperative configuration
 
-With imperative configuration, there is no need for type definition and schema modification.
+With imperative configuration, there is no need for type definition and schema modification. Instead, we use a configuration object.
 This results in better performance since the `schema` is not analyzed (not looking for directives).
 
 ```ts
@@ -229,6 +229,19 @@ const schema = buildSchema(/* GraphQL */ `
     name: String
   }
 `)
+
+const app = express()
+
+app.use(
+  '/graphql',
+  graphqlHTTP({
+    schema: schema,
+    rootValue: root,
+    graphiql: true,
+    validationRules: [validation] //add the validation function
+  })
+)
+app.listen(4000)
 ```
 
 Please note that when the `permissions` object is passed to the configuration, schema directives will be ignored.
@@ -256,7 +269,7 @@ const { typeDefs, validation } = createValidation({errorFn:(
 
 ## Envelop Plugin
 
-If you are using [GraphQL Envelop](https://www.envelop.dev/). I have made a (plugin)[packages/envelop/README.md] that uses this directive.
+If you are using [GraphQL Envelop](https://www.envelop.dev/). I have made a [plugin](packages/envelop/README.md) that uses this directive.
 
 ### License
 

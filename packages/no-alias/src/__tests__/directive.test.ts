@@ -1,9 +1,10 @@
 import { buildSchema, GraphQLError, parse, validate } from 'graphql'
-import createValidation from '..'
+import { createValidation, createTypeDefinition } from '..'
 
 describe('Directive on type field', () => {
   test('If the directive is not present, ignore all aliases', () => {
-    const { validation, typeDefs } = createValidation()
+    const { validation } = createValidation()
+    const typeDefs = createTypeDefinition()
 
     const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}
@@ -65,8 +66,9 @@ describe('Directive on type field', () => {
   })
 
   test('Set custom number of allowed aliases', () => {
-    const { validation, typeDefs } = createValidation()
     const allow = 3
+    const { validation } = createValidation()
+    const typeDefs = createTypeDefinition()
 
     const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}
@@ -107,7 +109,9 @@ describe('Directive on type field', () => {
 
   test('Set custom default value maximum allowed when creating the validation', () => {
     const defaultAllow = 3
-    const { validation, typeDefs } = createValidation({ defaultAllow })
+
+    const { validation } = createValidation({ defaultAllow })
+    const typeDefs = createTypeDefinition({ defaultAllow })
 
     const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}
@@ -150,10 +154,11 @@ describe('Directive on type field', () => {
     const defaultAllow = 3
     const directiveName = 'customDirectiveName'
 
-    const { validation, typeDefs } = createValidation({
+    const { validation } = createValidation({
       defaultAllow,
       directiveName
     })
+    const typeDefs = createTypeDefinition({ directiveName, defaultAllow })
 
     const schema = buildSchema(/* GraphQL */ `
       ${typeDefs}

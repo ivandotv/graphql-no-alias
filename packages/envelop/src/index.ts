@@ -1,7 +1,9 @@
 import { Plugin } from '@envelop/types'
-import createValidation, { Config } from 'graphql-no-alias'
+import { createValidation } from 'graphql-no-alias'
+import type { Config } from 'graphql-no-alias'
 
-export type NoAliasConfig = Config
+export { createTypeDefinition } from 'graphql-no-alias'
+export type { Config } from 'graphql-no-alias'
 
 export function useNoAlias(config?: Config): Plugin {
   const { validation } = createValidation(config)

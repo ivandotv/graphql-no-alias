@@ -1,5 +1,5 @@
 import { buildSchema, GraphQLError, parse, validate } from 'graphql'
-import createValidation from '..'
+import { createValidation } from '..'
 
 describe('Permissions via config', () => {
   test('Set default value for all queries', () => {

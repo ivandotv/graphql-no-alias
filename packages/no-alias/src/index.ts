@@ -15,6 +15,7 @@ export type ErrorFn = typeof createErrorMsg
  * Configuration object for the createValidation function
  */
 type Permissions = { [key: string]: Permissions | number }
+
 export type Config = {
   permissions?: Permissions
   /** How many aliases (calls) to allow by default */
@@ -24,26 +25,30 @@ export type Config = {
   /** function that should return a graphql erorr or string when the validation fails*/
   errorFn?: ErrorFn
 }
+
+const DEFAULT_ALLOW = 1
+const DIRECTIVE_NAME = 'noAlias'
+
 /**
  * Creates validation
  * @param config - {@link Config}
  * @returns validation function
  */
-export default function createValidation(config?: Config): {
+export function createValidation(config?: Config): {
   typeDefs: string
   validation: (context: ValidationContext) => ASTVisitor
 } {
   const { directiveName, defaultAllow, errorFn, permissions } = {
     ...{
-      defaultAllow: 1,
-      directiveName: 'noAlias',
+      defaultAllow: DEFAULT_ALLOW,
+      directiveName: DIRECTIVE_NAME,
       errorFn: createErrorMsg
     },
     ...(config || {})
   }
 
   return {
-    typeDefs: `directive @${directiveName}(allow: Int = ${defaultAllow}) on OBJECT | FIELD_DEFINITION`,
+    typeDefs: createTypeDefinition({ directiveName, defaultAllow }),
     validation(context: ValidationContext): ASTVisitor {
       const ast: ASTVisitor = {
         Field: {
@@ -60,6 +65,15 @@ export default function createValidation(config?: Config): {
       return ast
     }
   }
+}
+
+export function createTypeDefinition(opts?: {
+  directiveName?: string
+  defaultAllow?: number
+}): string {
+  return `directive @${opts?.directiveName ?? DIRECTIVE_NAME}(allow: Int = ${
+    opts?.defaultAllow ?? DEFAULT_ALLOW
+  }) on OBJECT | FIELD_DEFINITION`
 }
 
 function configPermissionWalker(
