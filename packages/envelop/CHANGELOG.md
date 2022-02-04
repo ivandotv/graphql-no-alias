@@ -1,5 +1,16 @@
 # envelop-no-alias
 
+## 2.0.0
+
+### Major Changes
+
+- d64594a: change export signature
+
+### Patch Changes
+
+- Updated dependencies [d64594a]
+  - graphql-no-alias@2.0.0
+
 ## 1.0.2
 
 ### Patch Changes
