@@ -1,5 +1,12 @@
 # envelop-no-alias
 
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies [b8195c3]
+  - graphql-no-alias@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes
