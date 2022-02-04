@@ -16,6 +16,7 @@
   - [Imperative configuration](#imperative-configuration)
   - [Customizing the error message](#customizing-the-error-message)
 - [Envelop Plugin](#envelop-plugin)
+- [No Batched Queries Library](#no-batched-queries-library)
   - [License](#license)
 
 <!-- tocstop -->
@@ -270,6 +271,10 @@ const { typeDefs, validation } = createValidation({errorFn:(
 ## Envelop Plugin
 
 If you are using [GraphQL Envelop](https://www.envelop.dev/). I have made a [plugin](packages/envelop/README.md) that uses this directive.
+
+## No Batched Queries Library
+
+I've also created another validation library: [No batched queries](https://github.com/ivandotv/graphql-no-batched-queries), which limits the number of **all** queries and mutations that could be sent per request. It pairs nicely with this validation, so you could allow, for example, 3 queries to be sent, and then use `noAlias` to disable duplicate queries.
 
 ### License
 
