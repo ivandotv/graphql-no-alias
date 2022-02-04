@@ -1,5 +1,11 @@
 # graphql-no-alias
 
+## 2.0.2
+
+### Patch Changes
+
+- b8195c3: update readme
+
 ## 2.0.1
 
 ### Patch Changes
