@@ -262,8 +262,8 @@ const { typeDefs, validation } = createValidation({errorFn:(
   return new GraphQLError(
     `Hey! allowed number of calls for ${typeName}->${fieldName} has been exceeded (max: ${maxAllowed})`
   )
-  //or
-  return 'just the message'
+  //or return string
+  return 'custom message'
 }
 })
 ```
