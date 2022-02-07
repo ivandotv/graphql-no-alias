@@ -59,7 +59,7 @@
     "@babel/preset-typescript": "^7.16.7",
     "@changesets/cli": "^2.19.0",
     "@envelop/core": "^2.0.0",
-    "@envelop/testing": "^3.0.1",
+    "@envelop/testing": "^4.0.0",
     "@envelop/types": "^1.5.1",
     "@types/jest": "^27.4.0",
     "@typescript-eslint/eslint-plugin": "^5.8.1",
