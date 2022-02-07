@@ -27,7 +27,7 @@ importers:
       '@changesets/cli': ^2.19.0
       '@envelop/core': ^2.0.0
       '@envelop/testing': ^4.0.0
-      '@envelop/types': ^1.5.1
+      '@envelop/types': ^2.0.0
       '@types/jest': ^27.4.0
       '@typescript-eslint/eslint-plugin': ^5.8.1
       '@typescript-eslint/parser': ^5.8.1
@@ -54,8 +54,8 @@ importers:
       '@babel/preset-typescript': 7.16.7_@babel+core@7.16.12
       '@changesets/cli': 2.20.0
       '@envelop/core': 2.0.0_graphql@16.2.0
-      '@envelop/testing': 4.0.0_9342875b60cabd7a7067abde0820baa3
-      '@envelop/types': 1.5.1_graphql@16.2.0
+      '@envelop/testing': 4.0.0_976b06dda45f77b133489c113a1ea4cb
+      '@envelop/types': 2.0.0_graphql@16.2.0
       '@types/jest': 27.4.0
       '@typescript-eslint/eslint-plugin': 5.10.1_0f442f6b60390429061d5d9b6bcaaba6
       '@typescript-eslint/parser': 5.10.1_eslint@8.7.0+typescript@4.5.5
@@ -1599,7 +1599,7 @@ packages:
       graphql: 16.2.0
     dev: true
 
-  /@envelop/testing/4.0.0_9342875b60cabd7a7067abde0820baa3:
+  /@envelop/testing/4.0.0_976b06dda45f77b133489c113a1ea4cb:
     resolution: {integrity: sha512-fLXZOiapD2ywJ9YKoXprfof313F37pQsHYvzyXU0RHUho+DdVAVzBaWRBLxRIDxT+nifsODJTpw4jEzh2JMAsg==}
     peerDependencies:
       '@envelop/core': ^2.0.0
@@ -1607,16 +1607,8 @@ packages:
       graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
     dependencies:
       '@envelop/core': 2.0.0_graphql@16.2.0
-      '@envelop/types': 1.5.1_graphql@16.2.0
+      '@envelop/types': 2.0.0_graphql@16.2.0
       '@graphql-tools/utils': 8.6.1_graphql@16.2.0
-      graphql: 16.2.0
-    dev: true
-
-  /@envelop/types/1.5.1_graphql@16.2.0:
-    resolution: {integrity: sha512-NrwLVzyNqiSzgRRqOxkU2IgRc5hSGS73VsgxqchU3jl36rYo7AXVAnITkytmB9wk+jN2vUOVvayLkaTXooARwg==}
-    peerDependencies:
-      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
-    dependencies:
       graphql: 16.2.0
     dev: true
 
