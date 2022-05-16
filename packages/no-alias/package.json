@@ -15,7 +15,7 @@
   "license": "MIT",
   "main": "./dist/prod/graphql-no-alias.js",
   "exports": {
-    "import": "./dist/prod/graphql-no-alias.esm.js",
+    "import": "./dist/prod/graphql-no-alias.esm.mjs",
     "require": "./dist/prod/graphql-no-alias.js"
   },
   "types": "./dist/types/index.d.ts",
