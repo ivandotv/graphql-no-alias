@@ -1,5 +1,19 @@
 # envelop-no-alias
 
+## 3.0.0
+
+### Major Changes
+
+- efa79b5: Switch packages to be `modules` by default.
+  Update build process
+
+  closes [#21](https://github.com/ivandotv/graphql-no-alias/issues/21)
+
+### Patch Changes
+
+- Updated dependencies [efa79b5]
+  - graphql-no-alias@3.0.0
+
 ## 2.0.2
 
 ### Patch Changes
