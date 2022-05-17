@@ -13,10 +13,12 @@
   ],
   "author": "ivandotv",
   "license": "MIT",
-  "main": "./dist/prod/graphql-no-alias.js",
+  "type": "module",
+  "main": "./dist/prod/index.cjs",
+  "module": "./dist/prod/index.modern.js",
   "exports": {
-    "import": "./dist/prod/graphql-no-alias.esm.js",
-    "require": "./dist/prod/graphql-no-alias.js"
+    "require": "./dist/prod/index.cjs",
+    "default": "./dist/prod/index.modern.js"
   },
   "types": "./dist/types/index.d.ts",
   "files": [
@@ -32,7 +34,7 @@
     "test": "NODE_ENV=test jest --verbose --coverage --no-cache",
     "test:watch": "NODE_ENV=test jest --watch",
     "test:ci": "NODE_ENV=test jest --runInBand --ci --coverage --coverageDirectory=coverage",
-    "build:prod": "NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs --target node --output dist/prod",
+    "build:prod": "NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs  --output dist/prod/index.js",
     "build": "rm -rf ./dist && pnpm build:prod",
     "prepublishOnly": "pnpm build",
     "release": "pnpm run prepublishOnly && pnpm changeset publish"

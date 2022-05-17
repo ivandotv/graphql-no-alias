@@ -4,20 +4,20 @@ importers:
 
   .:
     specifiers:
-      '@changesets/cli': ^2.19.0
-      del: ^6.0.0
-      husky: ^7.0.4
-      lint-staged: ^12.2.2
-      minimist: ^1.2.5
-      prettier: ^2.5.1
+      '@changesets/cli': ^2.22.0
+      del: ^6.1.0
+      husky: ^8.0.1
+      lint-staged: ^12.4.1
+      minimist: ^1.2.6
+      prettier: ^2.6.2
     dependencies:
-      husky: 7.0.4
-      lint-staged: 12.3.1
-      prettier: 2.5.1
+      husky: 8.0.1
+      lint-staged: 12.4.1
+      prettier: 2.6.2
     devDependencies:
-      '@changesets/cli': 2.20.0
-      del: 6.0.0
-      minimist: 1.2.5
+      '@changesets/cli': 2.22.0
+      del: 6.1.0
+      minimist: 1.2.6
 
   packages/envelop:
     specifiers:
@@ -1438,6 +1438,24 @@ packages:
       semver: 5.7.1
     dev: true
 
+  /@changesets/apply-release-plan/6.0.0:
+    resolution: {integrity: sha512-gp6nIdVdfYdwKww2+f8whckKmvfE4JEm4jJgBhTmooi0uzHWhnxvk6JIzQi89qEAMINN0SeVNnXiAtbFY0Mj3w==}
+    dependencies:
+      '@babel/runtime': 7.16.7
+      '@changesets/config': 2.0.0
+      '@changesets/get-version-range-type': 0.3.2
+      '@changesets/git': 1.3.2
+      '@changesets/types': 5.0.0
+      '@manypkg/get-packages': 1.1.3
+      detect-indent: 6.1.0
+      fs-extra: 7.0.1
+      lodash.startcase: 4.4.0
+      outdent: 0.5.0
+      prettier: 1.19.1
+      resolve-from: 5.0.0
+      semver: 5.7.1
+    dev: true
+
   /@changesets/assemble-release-plan/5.0.5:
     resolution: {integrity: sha512-ejCVSM4I1jgaNi30we3/qltj2NQtS68w7C3H8Gvb6ZOvbIpAW/Tr0uMmPgRj4Vzkez5+fx0If02AvOdssz1btA==}
     dependencies:
@@ -1447,6 +1465,23 @@ packages:
       '@changesets/types': 4.0.2
       '@manypkg/get-packages': 1.1.3
       semver: 5.7.1
+    dev: true
+
+  /@changesets/assemble-release-plan/5.1.2:
+    resolution: {integrity: sha512-nOFyDw4APSkY/vh5WNwGEtThPgEjVShp03PKVdId6wZTJALVcAALCSLmDRfeqjE2z9EsGJb7hZdDlziKlnqZgw==}
+    dependencies:
+      '@babel/runtime': 7.16.7
+      '@changesets/errors': 0.1.4
+      '@changesets/get-dependents-graph': 1.3.2
+      '@changesets/types': 5.0.0
+      '@manypkg/get-packages': 1.1.3
+      semver: 5.7.1
+    dev: true
+
+  /@changesets/changelog-git/0.1.11:
+    resolution: {integrity: sha512-sWJvAm+raRPeES9usNpZRkooeEB93lOpUN0Lmjz5vhVAb7XGIZrHEJ93155bpE1S0c4oJ5Di9ZWgzIwqhWP/Wg==}
+    dependencies:
+      '@changesets/types': 5.0.0
     dev: true
 
   /@changesets/cli/2.20.0:
@@ -1485,6 +1520,44 @@ packages:
       tty-table: 2.8.13
     dev: true
 
+  /@changesets/cli/2.22.0:
+    resolution: {integrity: sha512-4bA3YoBkd5cm5WUxmrR2N9WYE7EeQcM+R3bVYMUj2NvffkQVpU3ckAI+z8UICoojq+HRl2OEwtz+S5UBmYY4zw==}
+    hasBin: true
+    dependencies:
+      '@babel/runtime': 7.16.7
+      '@changesets/apply-release-plan': 6.0.0
+      '@changesets/assemble-release-plan': 5.1.2
+      '@changesets/changelog-git': 0.1.11
+      '@changesets/config': 2.0.0
+      '@changesets/errors': 0.1.4
+      '@changesets/get-dependents-graph': 1.3.2
+      '@changesets/get-release-plan': 3.0.8
+      '@changesets/git': 1.3.2
+      '@changesets/logger': 0.0.5
+      '@changesets/pre': 1.0.11
+      '@changesets/read': 0.5.5
+      '@changesets/types': 5.0.0
+      '@changesets/write': 0.1.8
+      '@manypkg/get-packages': 1.1.3
+      '@types/is-ci': 3.0.0
+      '@types/semver': 6.2.3
+      chalk: 2.4.2
+      enquirer: 2.3.6
+      external-editor: 3.1.0
+      fs-extra: 7.0.1
+      human-id: 1.0.2
+      is-ci: 3.0.1
+      meow: 6.1.1
+      outdent: 0.5.0
+      p-limit: 2.3.0
+      preferred-pm: 3.0.3
+      resolve-from: 5.0.0
+      semver: 5.7.1
+      spawndamnit: 2.0.0
+      term-size: 2.2.1
+      tty-table: 2.8.13
+    dev: true
+
   /@changesets/config/1.6.4:
     resolution: {integrity: sha512-WWa8eR8GzS/p2atLc/+5UEDn7fsRCZ+/sShLkB/3efVbTkSTB1PwoKwQRXLYXM1DY289T7UnJT4HLZA3Gcreww==}
     dependencies:
@@ -1492,6 +1565,18 @@ packages:
       '@changesets/get-dependents-graph': 1.3.0
       '@changesets/logger': 0.0.5
       '@changesets/types': 4.0.2
+      '@manypkg/get-packages': 1.1.3
+      fs-extra: 7.0.1
+      micromatch: 4.0.4
+    dev: true
+
+  /@changesets/config/2.0.0:
+    resolution: {integrity: sha512-r5bIFY6CN3K6SQ+HZbjyE3HXrBIopONR47mmX7zUbORlybQXtympq9rVAOzc0Oflbap8QeIexc+hikfZoREXDg==}
+    dependencies:
+      '@changesets/errors': 0.1.4
+      '@changesets/get-dependents-graph': 1.3.2
+      '@changesets/logger': 0.0.5
+      '@changesets/types': 5.0.0
       '@manypkg/get-packages': 1.1.3
       fs-extra: 7.0.1
       micromatch: 4.0.4
@@ -1513,6 +1598,16 @@ packages:
       semver: 5.7.1
     dev: true
 
+  /@changesets/get-dependents-graph/1.3.2:
+    resolution: {integrity: sha512-tsqA6qZRB86SQuApSoDvI8yEWdyIlo/WLI4NUEdhhxLMJ0dapdeT6rUZRgSZzK1X2nv5YwR0MxQBbDAiDibKrg==}
+    dependencies:
+      '@changesets/types': 5.0.0
+      '@manypkg/get-packages': 1.1.3
+      chalk: 2.4.2
+      fs-extra: 7.0.1
+      semver: 5.7.1
+    dev: true
+
   /@changesets/get-release-plan/3.0.5:
     resolution: {integrity: sha512-67td3LA1RTJpY5Q+wJaTTRtAjZ2suAhDfj3VRjFv0gCgUPXs8rNx17n9UPbegPTQjeTS1r7hVRVifycmT0fQtA==}
     dependencies:
@@ -1522,6 +1617,18 @@ packages:
       '@changesets/pre': 1.0.9
       '@changesets/read': 0.5.3
       '@changesets/types': 4.0.2
+      '@manypkg/get-packages': 1.1.3
+    dev: true
+
+  /@changesets/get-release-plan/3.0.8:
+    resolution: {integrity: sha512-TJYiWNuP0Lzu2dL/KHuk75w7TkiE5HqoYirrXF7SJIxkhlgH9toQf2C7IapiFTObtuF1qDN8HJAX1CuIOwXldg==}
+    dependencies:
+      '@babel/runtime': 7.16.7
+      '@changesets/assemble-release-plan': 5.1.2
+      '@changesets/config': 2.0.0
+      '@changesets/pre': 1.0.11
+      '@changesets/read': 0.5.5
+      '@changesets/types': 5.0.0
       '@manypkg/get-packages': 1.1.3
     dev: true
 
@@ -1540,6 +1647,17 @@ packages:
       spawndamnit: 2.0.0
     dev: true
 
+  /@changesets/git/1.3.2:
+    resolution: {integrity: sha512-p5UL+urAg0Nnpt70DLiBe2iSsMcDubTo9fTOD/61krmcJ466MGh71OHwdAwu1xG5+NKzeysdy1joRTg8CXcEXA==}
+    dependencies:
+      '@babel/runtime': 7.16.7
+      '@changesets/errors': 0.1.4
+      '@changesets/types': 5.0.0
+      '@manypkg/get-packages': 1.1.3
+      is-subdir: 1.2.0
+      spawndamnit: 2.0.0
+    dev: true
+
   /@changesets/logger/0.0.5:
     resolution: {integrity: sha512-gJyZHomu8nASHpaANzc6bkQMO9gU/ib20lqew1rVx753FOxffnCrJlGIeQVxNWCqM+o6OOleCo/ivL8UAO5iFw==}
     dependencies:
@@ -1551,6 +1669,23 @@ packages:
     dependencies:
       '@changesets/types': 4.0.2
       js-yaml: 3.14.1
+    dev: true
+
+  /@changesets/parse/0.3.13:
+    resolution: {integrity: sha512-wh9Ifa0dungY6d2nMz6XxF6FZ/1I7j+mEgPAqrIyKS64nifTh1Ua82qKKMMK05CL7i4wiB2NYc3SfnnCX3RVeA==}
+    dependencies:
+      '@changesets/types': 5.0.0
+      js-yaml: 3.14.1
+    dev: true
+
+  /@changesets/pre/1.0.11:
+    resolution: {integrity: sha512-CXZnt4SV9waaC9cPLm7818+SxvLKIDHUxaiTXnJYDp1c56xIexx1BNfC1yMuOdzO2a3rAIcZua5Odxr3dwSKfg==}
+    dependencies:
+      '@babel/runtime': 7.16.7
+      '@changesets/errors': 0.1.4
+      '@changesets/types': 5.0.0
+      '@manypkg/get-packages': 1.1.3
+      fs-extra: 7.0.1
     dev: true
 
   /@changesets/pre/1.0.9:
@@ -1576,8 +1711,25 @@ packages:
       p-filter: 2.1.0
     dev: true
 
+  /@changesets/read/0.5.5:
+    resolution: {integrity: sha512-bzonrPWc29Tsjvgh+8CqJ0apQOwWim0zheeD4ZK44ApSa/GudnZJTODtA3yNOOuQzeZmL0NUebVoHIurtIkA7w==}
+    dependencies:
+      '@babel/runtime': 7.16.7
+      '@changesets/git': 1.3.2
+      '@changesets/logger': 0.0.5
+      '@changesets/parse': 0.3.13
+      '@changesets/types': 5.0.0
+      chalk: 2.4.2
+      fs-extra: 7.0.1
+      p-filter: 2.1.0
+    dev: true
+
   /@changesets/types/4.0.2:
     resolution: {integrity: sha512-OeDaB7D+WVy/ErymPzFm58IeGvz4DOl+oedyZETfnkfMezF/Uhrm1Ub6MHrO5LcAaQTW+ptDmr0fmaVyoTxgHw==}
+    dev: true
+
+  /@changesets/types/5.0.0:
+    resolution: {integrity: sha512-IT1kBLSbAgTS4WtpU6P5ko054hq12vk4tgeIFRVE7Vnm4a/wgbNvBalgiKP0MjEXbCkZbItiGQHkCGxYWR55sA==}
     dev: true
 
   /@changesets/write/0.1.6:
@@ -1585,6 +1737,16 @@ packages:
     dependencies:
       '@babel/runtime': 7.16.7
       '@changesets/types': 4.0.2
+      fs-extra: 7.0.1
+      human-id: 1.0.2
+      prettier: 1.19.1
+    dev: true
+
+  /@changesets/write/0.1.8:
+    resolution: {integrity: sha512-oIHeFVMuP6jf0TPnKPpaFpvvAf3JBc+s2pmVChbeEgQTBTALoF51Z9kqxQfG4XONZPHZnqkmy564c7qohhhhTQ==}
+    dependencies:
+      '@babel/runtime': 7.16.7
+      '@changesets/types': 5.0.0
       fs-extra: 7.0.1
       human-id: 1.0.2
       prettier: 1.19.1
@@ -3150,8 +3312,8 @@ packages:
       object-keys: 1.1.1
     dev: true
 
-  /del/6.0.0:
-    resolution: {integrity: sha512-1shh9DQ23L16oXSZKB2JxpL7iMy2E0S9d517ptA1P8iw0alkPtQcrKH7ru31rYtKwF499HkTu+DRzq3TCKDFRQ==}
+  /del/6.1.0:
+    resolution: {integrity: sha512-OpcRktOt7G7HBfyxP0srBH4Djg4824EQORX8E1qvIhIzthNNArxxhrB/Mm7dRMiLi1nvFyUpDhzD2cTtbBhV8A==}
     engines: {node: '>=10'}
     dependencies:
       globby: 11.1.0
@@ -3977,9 +4139,9 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
 
-  /husky/7.0.4:
-    resolution: {integrity: sha512-vbaCKN2QLtP/vD4yvs6iz6hBEo6wkSzs8HpRah1Z6aGmF2KW5PdYuAd7uX5a+OyBZHBhd+TFLqgjUgytQr4RvQ==}
-    engines: {node: '>=12'}
+  /husky/8.0.1:
+    resolution: {integrity: sha512-xs7/chUH/CKdOCs7Zy0Aev9e/dKOMZf3K1Az1nar3tzlv0jfqnYtu235bstsWTmXOR0EfINrPa97yy4Lz6RiKw==}
+    engines: {node: '>=14'}
     hasBin: true
     dev: false
 
@@ -4958,6 +5120,30 @@ packages:
       yaml: 1.10.2
     transitivePeerDependencies:
       - enquirer
+    dev: true
+
+  /lint-staged/12.4.1:
+    resolution: {integrity: sha512-PTXgzpflrQ+pODQTG116QNB+Q6uUTDg5B5HqGvNhoQSGt8Qy+MA/6zSnR8n38+sxP5TapzeQGTvoKni0KRS8Vg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    hasBin: true
+    dependencies:
+      cli-truncate: 3.1.0
+      colorette: 2.0.16
+      commander: 8.3.0
+      debug: 4.3.3_supports-color@9.2.1
+      execa: 5.1.1
+      lilconfig: 2.0.4
+      listr2: 4.0.1
+      micromatch: 4.0.4
+      normalize-path: 3.0.0
+      object-inspect: 1.12.0
+      pidtree: 0.5.0
+      string-argv: 0.3.1
+      supports-color: 9.2.1
+      yaml: 1.10.2
+    transitivePeerDependencies:
+      - enquirer
+    dev: false
 
   /listr2/4.0.1:
     resolution: {integrity: sha512-D65Nl+zyYHL2jQBGmxtH/pU8koPZo5C8iCNE8EoB04RwPgQG1wuaKwVbeZv9LJpiH4Nxs0FCp+nNcG8OqpniiA==}
@@ -5222,6 +5408,10 @@ packages:
 
   /minimist/1.2.5:
     resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
+    dev: true
+
+  /minimist/1.2.6:
+    resolution: {integrity: sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==}
     dev: true
 
   /mixme/0.5.4:
@@ -5489,6 +5679,12 @@ packages:
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
+
+  /pidtree/0.5.0:
+    resolution: {integrity: sha512-9nxspIM7OpZuhBxPg73Zvyq7j1QMPMPsGKTqRc2XOaFQauDvoNz9fM1Wdkjmeo7l9GXOZiRs97sPkuayl39wjA==}
+    engines: {node: '>=0.10'}
+    hasBin: true
+    dev: false
 
   /pify/4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
@@ -5921,6 +6117,13 @@ packages:
     resolution: {integrity: sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==}
     engines: {node: '>=10.13.0'}
     hasBin: true
+    dev: true
+
+  /prettier/2.6.2:
+    resolution: {integrity: sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: false
 
   /pretty-bytes/3.0.1:
     resolution: {integrity: sha1-J9AAjXeAY6C0gRuzXHnxvV1fvM8=}
