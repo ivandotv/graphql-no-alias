@@ -34,7 +34,7 @@
     "test": "NODE_ENV=test jest --verbose --coverage --no-cache",
     "test:watch": "NODE_ENV=test jest --watch",
     "test:ci": "NODE_ENV=test jest --runInBand --ci --coverage --coverageDirectory=coverage",
-    "build:prod": "NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs  --output dist/prod/index.js",
+    "build:prod": "NODE_ENV=production microbundle --tsconfig ./tsconfig.json  --format modern,cjs --target node --output dist/prod/index.js",
     "build": "rm -rf ./dist && pnpm build:prod",
     "prepublishOnly": "pnpm build",
     "release": "pnpm run prepublishOnly && pnpm changeset publish"
