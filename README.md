@@ -1,7 +1,7 @@
 # GraphQl No Alias Directive Validation
 
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/ivandotv/graphql-no-alias/Test)
-![Codecov](https://img.shields.io/codecov/c/gh/ivandotv/graphql-no-alias)
+[![Test](https://github.com/ivandotv/graphql-no-alias/actions/workflows/CI.yml/badge.svg)](https://github.com/ivandotv/graphql-no-alias/actions/workflows/CI.yml)
+[![Codecov](https://img.shields.io/codecov/c/gh/ivandotv/graphql-no-alias)](https://app.codecov.io/gh/ivandotv/graphql-no-alias)
 [![GitHub license](https://img.shields.io/github/license/ivandotv/graphql-no-alias)](https://github.com/ivandotv/graphql-no-alias/blob/main/LICENSE)
 
 <!-- toc -->
