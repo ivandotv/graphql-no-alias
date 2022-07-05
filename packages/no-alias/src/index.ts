@@ -26,7 +26,16 @@ export type Config = {
   errorFn?: ErrorFn
 }
 
+export type CreateDefinitionOptions = {
+  /** name of the directive*/
+  directiveName?: string
+  /** default allow count*/
+  defaultAllow?: number
+}
+
+/** default allow count*/
 const DEFAULT_ALLOW = 1
+/** default directive name*/
 const DIRECTIVE_NAME = 'noAlias'
 
 /**
@@ -67,10 +76,12 @@ export function createValidation(config?: Config): {
   }
 }
 
-export function createTypeDefinition(opts?: {
-  directiveName?: string
-  defaultAllow?: number
-}): string {
+/**
+ * Creates type definitions
+ * @param opts - {@link CreateDefinitionOptions}
+ * @returns type definition
+ */
+export function createTypeDefinition(opts?: CreateDefinitionOptions): string {
   return `directive @${opts?.directiveName ?? DIRECTIVE_NAME}(allow: Int = ${
     opts?.defaultAllow ?? DEFAULT_ALLOW
   }) on OBJECT | FIELD_DEFINITION`
