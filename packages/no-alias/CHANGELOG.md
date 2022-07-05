@@ -1,5 +1,11 @@
 # graphql-no-alias
 
+## 3.0.2
+
+### Patch Changes
+
+- aa7da1d: Fix publishing README file to npm.
+
 ## 3.0.1
 
 ### Patch Changes
