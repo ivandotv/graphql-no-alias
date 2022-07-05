@@ -1,5 +1,13 @@
 # envelop-no-alias
 
+## 3.0.3
+
+### Patch Changes
+
+- 7e4a226: Add more code comments
+- Updated dependencies [7e4a226]
+  - graphql-no-alias@3.0.3
+
 ## 3.0.2
 
 ### Patch Changes

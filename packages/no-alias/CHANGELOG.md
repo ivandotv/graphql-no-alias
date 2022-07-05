@@ -1,5 +1,11 @@
 # graphql-no-alias
 
+## 3.0.3
+
+### Patch Changes
+
+- 7e4a226: Add more code comments
+
 ## 3.0.2
 
 ### Patch Changes
