@@ -1,5 +1,11 @@
 # graphql-no-alias
 
+## 3.0.1
+
+### Patch Changes
+
+- 3ae1a23: Publish README file
+
 ## 3.0.0
 
 ### Major Changes
