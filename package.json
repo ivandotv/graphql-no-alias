@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.22.0",
-    "del": "^6.1.0",
+    "del": "^7.0.0",
     "minimist": "^1.2.6"
   }
 }
