@@ -168,7 +168,7 @@ function checkCount(
   const fieldKey = `${typeKey}.${nodeName}`
   const maxAllowed = maxAllowedData.get(fieldKey) || maxAllowedData.get(typeKey)
 
-  if (maxAllowed) {
+  if (typeof maxAllowed === 'number' && isFinite(maxAllowed)) {
     let currentCount = currentCountData.get(fieldKey) ?? 0
     currentCount++
     if (currentCount > maxAllowed) {
